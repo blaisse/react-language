@@ -1,0 +1,128 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400|PT+Serif');
+
+.verb-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    font-family: 'PT Serif', serif;    
+    font-size: 1.2em;
+}
+.verb-inner {
+    max-width: 600px;
+    padding: 50px;
+    display: flex;
+    flex-direction: column;
+}
+.verb-inner-meaning {
+    font-size: 1.1em;
+    /* margin-left: 100px; */
+    color: tomato;
+    width: 100%;
+    text-align: center;
+}
+.input-field {
+    display: flex;
+    flex-direction: row;
+}
+.input-verb {
+    padding: 5px;
+    margin-left: 20px;
+    margin-top: 10px;
+    outline: none;
+}
+.input-person {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+}
+.incorrect {
+    border: 1px solid red;
+}
+.tense-link {
+    /* background: tomato; */
+    text-decoration: none;
+    list-style: none;
+    font-size: 1.2em;
+    margin-right: 30px;
+}
+.app-container {
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+}
+.menu-container {
+    background: white;
+    border-bottom: 1px solid black;
+    height: 40px;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-bottom: 20px;
+}
+.add-verb-container {
+    display: flex;
+    justify-content: center;
+    background-color: white;
+}
+.add-verb-container form {
+     display: flex;
+     flex-direction: column; 
+     justify-content: center; 
+}
+.add-verb-container button {
+    padding-left: 20px;
+    padding-right: 20px; 
+    padding-top: 5px;
+    padding-bottom: 5px;
+    margin-top: 10px;
+    background: white;
+    border: 1px solid black;
+}
+.verb-hint {
+    /* opacity: 0; */
+    color: black;
+     display: flex; 
+    flex-direction: row;
+    margin-top: 10px;
+}
+.verb-hint span {
+    width: 100%;
+    text-align: center;
+    margin-right: 3px;
+}
+.add-verb-input {
+    background: white;
+    margin-bottom: 8px;
+    display: flex;
+    flex-direction: column;
+    /* justify-content: space-between; */
+    /* align-items: center; */
+}
+.add-verb-input-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.add-verb-input input {
+    padding: 4px;
+    margin-left: 30px;
+}
+.add-verb-input label {
+    margin-top: 3px;
+}
+.same-tense {
+    color: red;
+    text-align: center;
+    margin-bottom: 8px;
+}
+.input-error-container {
+    text-align: center;
+}
+.input-error {
+    border: 1px solid red;
+}
+.input-error-text {
+    color: red;
+}
