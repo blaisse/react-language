@@ -8,14 +8,36 @@ export const PATCH_VERB = 'patch_verb';
 
 const ROOT_URL = 'https://safe-badlands-67690.herokuapp.com';
 
-export function fetchVerb(){
-    const request = axios.get(`${ROOT_URL}/word`);
-    return {
-        type: FETCH_VERB,
-        payload: request
-    };
+export function fetchVerb(tenses){
+    // console.log(tenses);
+    // console.log(typeof(tenses[0]));
+    // const request = axios.post(`${ROOT_URL}/word`, tenses);;
+    if(!(typeof(tenses[0]) === 'string')){
+        const ar = tenses.map((item) => {
+            return item.time;
+        });
+        const obj = {
+            time: ar
+        };
+        const request = axios.post(`${ROOT_URL}/word`, obj);
+        return {
+            type: FETCH_VERB,
+            payload: request
+        };
+    } else {
+        const obj = {
+            time: tenses
+        };
+        const request = axios.post(`${ROOT_URL}/word`, obj);
+        return {
+            type: FETCH_VERB,
+            payload: request
+        };
+    }
+
 }
 export function selectTime(time){
+    // console.log('time', time);
     return {
         type: SELECTED_TIME,
         payload: time
@@ -29,7 +51,7 @@ export function fetchWord(word, callback){
     };
 }
 export function createVerb(values){
-    console.log(values);
+    // console.log(values);
     const request = axios.post(`${ROOT_URL}/words`, values);
     return {
         type: CREATE_VERB,

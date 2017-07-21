@@ -11,19 +11,43 @@ class CorrectVerb extends Component {
         super(props);
         this.answer = null;
         this.picked = null;
+        this.tense = null;
     }
-    componentDidMount(){
-        this.props.fetchVerb();
+    componentDidMount(){  
+        if(!this.props.time){
+            //  console.log('xD');
+            this.props.fetchVerb(this.props.times);
+        } else {
+            this.props.fetchVerb(this.props.time);
+        }
     }
     pickRandomPerson(){
         const p = ['ich', 'du', 'er_sie_es', 'wir', 'ihr', 'sie_Sie'];
         var picked = p[Math.floor(Math.random()*6)];
         if(this.props.verb.conj){
+            //DONE: first it gets a verb then checks whether is has this tense
             //select the object with time === time in state
-            const obj = this.props.verb.conj.filter((item) => {
-                return item.time === this.props.time.time;
-            });
+            // console.log('Tenses:', this.props.times);
+            var rollTense;
+            var obj;
+            if(!this.props.time){
+                rollTense = Math.floor(Math.random() * this.props.times.length);
+                obj = this.props.verb.conj.filter((item) => {
+                    return item.time === this.props.times[rollTense].time;
+                });
+            } else {
+                rollTense = Math.floor(Math.random() * this.props.time.length);
+                obj = this.props.verb.conj.filter((item) => {
+                    return item.time === this.props.time[rollTense];
+                });
+            }
+            //   var rollTense = Math.floor(Math.random() * this.props.time.length);
+            //    const obj = this.props.verb.conj.filter((item) => {
+            //         return item.time === this.props.time[rollTense];
+            //     });
+           
             this.picked = obj[0][picked];
+            this.tense = obj[0].time;
             return ( //({ obj[0][picked] }) 
                 <div className="input-person">
                      { picked } 
@@ -36,7 +60,12 @@ class CorrectVerb extends Component {
            if(this.answer === this.picked){
             //    this.setState({ answer: undefined });
                this.answer = null;
-               this.props.fetchVerb();
+            //    this.props.fetchVerb(this.props.time);
+                if(!this.props.time){
+                    this.props.fetchVerb(this.props.times);
+                } else {
+                    this.props.fetchVerb(this.props.time);
+                }
            }
        } 
     }
@@ -51,16 +80,29 @@ class CorrectVerb extends Component {
             );
         }
     }
+    handleRefresh(){
+        // console.log('handling refresh icon..');
+        // console.log(this.props.time);
+        // console.log(this.props.times);
+        if(!this.props.time){
+            //  console.log('xD');
+            this.props.fetchVerb(this.props.times);
+        } else {
+            this.props.fetchVerb(this.props.time);
+        }
+    }
     render(){
         return (
             <div className="verb-container">
                 <div className="verb-inner">
                 {this.displayDiv()}
+                <span className="refresh-icon"><i className="fal fa-redo" onClick={this.handleRefresh.bind(this)}></i></span>
                 <span className="verb-inner-meaning">{this.props.verb.meaning}</span>
                 <div className={"input-field"}>
                     {this.pickRandomPerson()}
                     <InputVerb picked={this.picked} onAnswerChange={this.inputAnswer.bind(this)}  />
-                </div>       
+                </div>  
+                <div className="display-tense">{this.tense}</div>  
                  <DisplayAnswer picked={this.picked} answer={this.answer} /> 
                  </div>
             </div>
@@ -71,7 +113,8 @@ class CorrectVerb extends Component {
 function mapStateToProps(state){
     return { 
      verb: state.verb,
-     time: state.time
+     time: state.time,
+     times: state.times
     };
 }
 

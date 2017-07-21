@@ -1,5 +1,12 @@
 @import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400|PT+Serif');
+@import url('https://fonts.googleapis.com/css?family=Zilla+Slab');
 
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Zilla Slab', serif;
+
+}
 .verb-container {
     display: flex;
     justify-content: center;
@@ -17,49 +24,163 @@
 .verb-inner-meaning {
     font-size: 1.1em;
     /* margin-left: 100px; */
-    color: tomato;
+    color: #ff9e9e;
     width: 100%;
     text-align: center;
 }
 .input-field {
+    padding: 20px;
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap;
 }
 .input-verb {
-    padding: 5px;
+    padding: 10px;
+    font-size: 1.3em;
     margin-left: 20px;
     margin-top: 10px;
     outline: none;
 }
+@media (max-width: 600px){
+    .input-verb {
+        margin: 0 auto;
+        margin-top: 15px;
+    }
+    .input-person {
+        width: 100%;
+    }
+}
 .input-person {
+    min-width: 80px;
     display: flex;
     align-items: center;
     margin-top: 10px;
+    justify-content: center;
 }
 .incorrect {
     border: 1px solid red;
 }
-.tense-link {
-    /* background: tomato; */
+.tense-ul {
+    margin-top: 30px;
+    margin-bottom: 30px;
+    width: 200px;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.tense-link-li {
     text-decoration: none;
     list-style: none;
     font-size: 1.2em;
-    margin-right: 30px;
+    width: 100%;
+}
+.tense-link {
+     /* width: 100%;  */
+    text-align: center;
+    /* padding: 5px;  */
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+    border: 1px solid black;
+    /* background: tomato;  */
+    margin-bottom: 5px;
+    background-color: white;
+    transition: background-color 1s ease-out; 
+    /* transition-property: background-color,color;  */
+    color: black;
+    /* transition: color 0.5s; */
+    
+    /* margin-right: 30px; */
+}
+.tense-link:hover {
+    /* background-color: #ff9e9e; */
+}
+.tense-clicked {
+    /* background: #ffc9ad; */
+     background-color: #ff9e9e; 
+    /* background: #ffcab7; */
+    /* color: #f9f9f9; */
+    color: black;
+}
+.all-tenses {
+    /* background: tomato; */
+    color: black;
+    font-size: 0.8em;
+    /* background: #ffeccc; */
+    background-color: #ffd272;
+    transition: background-color 2s;
+    text-decoration: none;
+}
+.all-tenses:hover {
+    background-color: #fcbe92;
+}
+.practice-link a{
+    color: black;
+    font-size: 1.2em;
+    text-decoration: none;
+}
+.practice-link a:hover {
+    color: #ff9e9e;
 }
 .app-container {
+   font-size: 1.1em;
    display: flex;
    flex-direction: column;
    align-items: center;
+}
+.app-container h4 {
+    font-size: 1.3em;
+    text-align: center;
 }
 .menu-container {
     background: white;
     border-bottom: 1px solid black;
     height: 40px;
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
     flex-wrap: wrap;
     align-items: center;
     margin-bottom: 20px;
+}
+.menu-container a {
+    font-size: 1.2em;
+    /* color: #ffc9ad; */
+    text-decoration: none;
+    color: #ff9e9e;
+}
+.menu-container a:not(:first-child){
+    margin-left: 40px;
+}
+.menu-container a:hover {
+     color: #fc8585; 
+}
+.menu-bar-icon {
+    position: absolute;
+    font-size: 1.5em;
+    top: 5px;
+    right: 10px;
+}
+@media (max-width: 600px){
+    .menu-bar-icon {
+        right: 3px;
+    }
+}
+.right-menu {
+    /* z-index: -1; */
+    position: fixed;
+    top: 41px;
+    right: 0;
+    height: 100%;
+    width: 0;
+    background: tomato;
+    transition: width 1s;
+}
+.right-menu-open {
+    width: 300px;
 }
 .add-verb-container {
     display: flex;
@@ -90,6 +211,7 @@
 .verb-hint span {
     width: 100%;
     text-align: center;
+    font-size: 0.9em;
     margin-right: 3px;
 }
 .add-verb-input {
@@ -125,4 +247,26 @@
 }
 .input-error-text {
     color: red;
+}
+.display-tense {
+    color: #ff9e9e;
+    text-align: center;
+}
+
+.refresh-icon {
+    font-size: 1.1em;
+    display: flex;
+    justify-content: flex-end;
+}
+@media (max-width: 600px){
+    input {
+        border: 1px solid black;
+    }
+    .refresh-icon {
+        justify-content: center;
+        margin-bottom: 20px;
+    }
+    .refresh-icon i {
+        padding: 5px;
+    }
 }

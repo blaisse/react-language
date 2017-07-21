@@ -68,9 +68,9 @@ class AddVerb extends Component {
                     //tenses are different - update record
                     ret.payload.data.conj.push(db_obj.conj[0]);
                     // console.log(ret.payload.data);
-                    this.props.patchVerb(ret.payload.data).then(() => {
-                        this.props.history.push('/');
-                    });       
+                    this.props.patchVerb(ret.payload.data);
+                    this.props.history.push('/');
+                         
                 }
             }
         });

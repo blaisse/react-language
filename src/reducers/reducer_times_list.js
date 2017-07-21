@@ -1,5 +1,6 @@
 export default function() {
     return [
-        {time: "simple"}
+        {time: "simple"},
+        {time: "past_simple"}
     ];
 }
