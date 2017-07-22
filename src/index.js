@@ -9,6 +9,7 @@ import reducers from './reducers';
 
 import CorrectVerb from './components/correct_verb';
 import DisplayTimes from './components/display_times';
+import VerbContainer from './components/verb_container';
 import AddVerb from './components/add_verb';
 import Menu from './components/menu';
 
@@ -21,7 +22,7 @@ ReactDOM.render(
         <Menu />
         <Switch>
           <Route exact path="/" component={DisplayTimes} />
-          <Route exact path="/verb" component={CorrectVerb} />
+          <Route exact path="/verb" component={VerbContainer} />
           <Route exact path="/add" component={AddVerb} />
         </Switch>
       </div>

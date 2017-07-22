@@ -7,6 +7,12 @@
     font-family: 'Zilla Slab', serif;
 
 }
+.push-container {
+    transition: transform 0.9s;
+}
+.app-push {
+    transform: translateX(-100px);
+}
 .verb-container {
     display: flex;
     justify-content: center;
@@ -133,9 +139,7 @@
    align-items: center;
    transition: transform 0.9s;
 }
-.app-push {
-    transform: translateX(-100px);
-}
+
 .app-container h4 {
     font-size: 1.3em;
     text-align: center;

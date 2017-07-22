@@ -48,18 +48,19 @@ class DisplayTimes extends Component {
         } else {
             return (
                 <div className="practice-link">
-                    <Link to='/verb' onClick={() => this.props.selectTime(this.state.tense)}>Practise</Link>
+                    <Link to='/verb' onClick={() => this.props.selectTime(this.state.tense)}>Click to Practise</Link>
                 </div>
             );
         }
         //this.props.selectTime(this.state.tense)
     }
     render(){
-        console.log('HOME push', this.props.pushContent);
+        // console.log('Read global state', this.props);
+        // console.log('HOME push', this.props.pushContent);
         // console.log(this.state.tense);
         return (
-            // <div className="app-container">
-            <div className={"app-container " + (this.props.pushContent ? 'app-push' : '')}>
+            // // <div className={"app-container " + (this.props.pushContent ? 'app-push' : '')}>
+            <div className="app-container">
                 <h4>Select the tense you want to practise</h4>
                 {/* <p>Only present tenses for now</p> */}
                 <ul className="tense-ul">

@@ -13,6 +13,10 @@ class CorrectVerb extends Component {
         this.picked = null;
         this.tense = null;
     }
+    shouldComponentUpdate(nextProps){
+        const o = this.props.open !== nextProps.open;
+        return !o;
+    }
     componentDidMount(){  
         if(!this.props.time){
             //  console.log('xD');
@@ -92,8 +96,10 @@ class CorrectVerb extends Component {
         }
     }
     render(){
+        console.log('OPEN', this.props.open);
+        //  + (this.props.push ? 'app-push' : '')
         return (
-            <div className={"app-container " + (this.props.push ? 'app-push' : '')}>
+            <div className={"verb-container "}>
                 <div className="verb-inner">
                 {this.displayDiv()}
                 <span className="refresh-icon"><i className="fal fa-redo" onClick={this.handleRefresh.bind(this)}></i></span>
@@ -115,7 +121,7 @@ function mapStateToProps(state){
      verb: state.verb,
      time: state.time,
      times: state.times,
-     push: state.pushContent
+    //  push: state.pushContent
     };
 }
 

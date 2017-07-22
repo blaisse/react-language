@@ -45,5 +45,14 @@ class Menu extends Component {
     }
 }
 
+function mapStateToProps(state){
+    return { 
+     verb: state.verb,
+     time: state.time,
+     times: state.times,
+     push: state.pushContent
+    };
+}
+
 // export default Menu;
-export default connect(null, { pushContent })(Menu);
+export default connect(mapStateToProps, { pushContent })(Menu);
