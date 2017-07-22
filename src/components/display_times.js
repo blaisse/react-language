@@ -60,6 +60,7 @@ class DisplayTimes extends Component {
         // console.log(this.state.tense);
         return (
             // // <div className={"app-container " + (this.props.pushContent ? 'app-push' : '')}>
+            <div className={"push-container " + (this.props.push ? 'app-push' : '')}>
             <div className="app-container">
                 <h4>Select the tense you want to practise</h4>
                 {/* <p>Only present tenses for now</p> */}
@@ -74,6 +75,7 @@ class DisplayTimes extends Component {
                 {this.handleLink()}
                 {/* <Link to='/' onClick={this.handleLink.bind(this)}>Practise</Link> */}
             </div>
+            </div>
         );
     }
 };
@@ -81,7 +83,7 @@ class DisplayTimes extends Component {
 function mapStateToProps(state){
     return {
         times: state.times,
-        pushContent: state.pushContent
+        push: state.pushContent
     };
 }
 
