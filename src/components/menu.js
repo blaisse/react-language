@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import RightMenu from './right_menu';
+import { connect } from 'react-redux';
+import { pushContent } from './../actions';
 
 class Menu extends Component {
     constructor(props){
@@ -20,9 +22,13 @@ class Menu extends Component {
     }
     handleClick(){
         if(this.state.open){
-            this.setState({ open: false });
+            this.setState({ open: false }, () => {
+                this.props.pushContent(this.state.open);
+            });
         } else {
-            this.setState({ open: true });
+            this.setState({ open: true }, () => {
+                this.props.pushContent(this.state.open);
+            });
         }
     }
     render(){
@@ -39,4 +45,5 @@ class Menu extends Component {
     }
 }
 
-export default Menu;
+// export default Menu;
+export default connect(null, { pushContent })(Menu);

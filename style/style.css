@@ -131,6 +131,10 @@
    display: flex;
    flex-direction: column;
    align-items: center;
+   transition: transform 0.9s;
+}
+.app-push {
+    transform: translateX(-100px);
 }
 .app-container h4 {
     font-size: 1.3em;
@@ -171,16 +175,28 @@
 }
 .right-menu {
     /* z-index: -1; */
+    /* display: none; */
     position: fixed;
     top: 41px;
     right: 0;
     height: 100%;
-    width: 0;
+    width: 300px;
     background: tomato;
-    transition: width 1s;
+    /* transition: width 1s; */
+    transition: transform 1s;
+    transform: translateX(100%);
+}
+
+@media all and (min-width: 320px) {
+  .right-menu {
+    transform: translateX(300px);
+  }
 }
 .right-menu-open {
-    width: 300px;
+    transform: translateX(0);
+    /* display: block; */
+    /* transform: translate3d(300px, 0, 0); */
+    /* width: 300px; */
 }
 .add-verb-container {
     display: flex;

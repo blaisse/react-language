@@ -93,7 +93,7 @@ class CorrectVerb extends Component {
     }
     render(){
         return (
-            <div className="verb-container">
+            <div className={"app-container " + (this.props.push ? 'app-push' : '')}>
                 <div className="verb-inner">
                 {this.displayDiv()}
                 <span className="refresh-icon"><i className="fal fa-redo" onClick={this.handleRefresh.bind(this)}></i></span>
@@ -114,7 +114,8 @@ function mapStateToProps(state){
     return { 
      verb: state.verb,
      time: state.time,
-     times: state.times
+     times: state.times,
+     push: state.pushContent
     };
 }
 

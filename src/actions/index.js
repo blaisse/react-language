@@ -5,6 +5,7 @@ export const SELECTED_TIME = 'selected_time';
 export const CREATE_VERB = 'create_verb';
 export const FETCH_WORD = 'fetch_word';
 export const PATCH_VERB = 'patch_verb';
+export const PUSH_CONTENT = 'push_content';
 
 const ROOT_URL = 'https://safe-badlands-67690.herokuapp.com';
 
@@ -65,5 +66,13 @@ export function patchVerb(values){
     return {
         type: PATCH_VERB,
         payload: "xd"
+    };
+}
+
+export function pushContent(state){
+    // console.log('pushContent', state);
+    return {
+        type: PUSH_CONTENT,
+        payload: state
     };
 }

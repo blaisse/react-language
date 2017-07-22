@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import ClickTense from './click_tense';
 
 
-class DisplayTimes extends Component {
+class DisplayTimes extends Component { 
     constructor(props){
         super(props);
         this.state = { tense: [] };
@@ -55,9 +55,11 @@ class DisplayTimes extends Component {
         //this.props.selectTime(this.state.tense)
     }
     render(){
+        console.log('HOME push', this.props.pushContent);
         // console.log(this.state.tense);
         return (
-            <div className="app-container">
+            // <div className="app-container">
+            <div className={"app-container " + (this.props.pushContent ? 'app-push' : '')}>
                 <h4>Select the tense you want to practise</h4>
                 {/* <p>Only present tenses for now</p> */}
                 <ul className="tense-ul">
@@ -77,7 +79,8 @@ class DisplayTimes extends Component {
 
 function mapStateToProps(state){
     return {
-        times: state.times
+        times: state.times,
+        pushContent: state.pushContent
     };
 }
 
