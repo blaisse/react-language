@@ -1,7 +1,9 @@
 import axios from 'axios';
 
 export const FETCH_VERB = 'fetch_verb';
+export const RESET_VERB = 'reset_verb';
 export const SELECTED_TIME = 'selected_time';
+export const SELECTED_LANGUAGE = 'selected_language';
 export const CREATE_VERB = 'create_verb';
 export const FETCH_WORD = 'fetch_word';
 export const PATCH_VERB = 'patch_verb';
@@ -9,7 +11,7 @@ export const PUSH_CONTENT = 'push_content';
 
 const ROOT_URL = 'https://safe-badlands-67690.herokuapp.com';
 
-export function fetchVerb(tenses){
+export function fetchVerb(tenses, language){
     // console.log(tenses);
     // console.log(typeof(tenses[0]));
     // const request = axios.post(`${ROOT_URL}/word`, tenses);;
@@ -18,7 +20,8 @@ export function fetchVerb(tenses){
             return item.time;
         });
         const obj = {
-            time: ar
+            time: ar,
+            lang: language
         };
         const request = axios.post(`${ROOT_URL}/word`, obj);
         return {
@@ -27,7 +30,8 @@ export function fetchVerb(tenses){
         };
     } else {
         const obj = {
-            time: tenses
+            time: tenses,
+            lang: language
         };
         const request = axios.post(`${ROOT_URL}/word`, obj);
         return {
@@ -37,12 +41,39 @@ export function fetchVerb(tenses){
     }
 
 }
+export function resetVerb(){
+    return {
+        type: RESET_VERB,
+        payload: {}
+    };
+}
 export function selectTime(time){
     // console.log('time', time);
-    return {
-        type: SELECTED_TIME,
-        payload: time
+    if(!(typeof(time[0]) === 'string')){
+        //times: array of objects
+        const ar = time.map((item) => {
+            return item.time;
+        });
+        return {
+            type: SELECTED_TIME,
+            payload: ar
+        };
+        // console.log('selectTime',ar);
+    } else {
+        //tense: array of strings
+        // console.log('selectTime string',time);
+        return {
+            type: SELECTED_TIME,
+            payload: time
+        };
     }
+    
+}
+export function selectLanguage(lang){
+    return {
+        type: SELECTED_LANGUAGE,
+        payload: lang
+    };
 }
 export function fetchWord(word, callback){
     const request = axios.get(`${ROOT_URL}/word/${word}`);

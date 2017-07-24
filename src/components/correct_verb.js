@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchVerb } from './../actions';
+import { fetchVerb, selectTime, resetVerb } from './../actions';
 import InputVerb from './input_verb';
 import DisplayAnswer from './display_answer';
 import _ from 'lodash';
@@ -12,26 +12,35 @@ class CorrectVerb extends Component {
         this.answer = null;
         this.picked = null;
         this.tense = null;
+        this.defaultLang = 'german';
     }
     shouldComponentUpdate(nextProps){
-        const o = this.props.open !== nextProps.open;
-        return !o;
+        return this.props.open === nextProps.open; 
     }
-    componentDidMount(){  
-        if(!this.props.time){
-            //  console.log('xD');
-            this.props.fetchVerb(this.props.times);
+    componentWillMount(){
+        if(!this.props.lang){
         } else {
-            this.props.fetchVerb(this.props.time);
+            this.defaultLang = this.props.lang;
+        }
+        if(!this.props.time){
+            this.props.fetchVerb(this.props.times, this.defaultLang);
+        } else {
+            this.props.fetchVerb(this.props.time, this.defaultLang);
         }
     }
+    componentDidMount(){  
+        
+    }
+    componentWillUnmount(){
+        this.props.resetVerb();
+    }
     pickRandomPerson(){
-        const p = ['ich', 'du', 'er_sie_es', 'wir', 'ihr', 'sie_Sie'];
+        let p = ['ich', 'du', 'er_sie_es', 'wir', 'ihr', 'sie_Sie'];
+        console.log(this.props.verb);
         var picked = p[Math.floor(Math.random()*6)];
         if(this.props.verb.conj){
             //DONE: first it gets a verb then checks whether is has this tense
             //select the object with time === time in state
-            // console.log('Tenses:', this.props.times);
             var rollTense;
             var obj;
             if(!this.props.time){
@@ -39,22 +48,52 @@ class CorrectVerb extends Component {
                 obj = this.props.verb.conj.filter((item) => {
                     return item.time === this.props.times[rollTense].time;
                 });
+                if(obj.length===0)console.log('!props.time - 00');
             } else {
-                rollTense = Math.floor(Math.random() * this.props.time.length);
-                obj = this.props.verb.conj.filter((item) => {
-                    return item.time === this.props.time[rollTense];
-                });
+                //if(this.anyTense.length === 1){
+                    //SET global props.time to all times possible
+                    // let allTenses = this.props.times.map((item) => {
+                    //     return item.time;
+                    // });
+                    // console.log(allTenses);
+                    // this.props.selectTime(allTenses);
+
+                    // rollTense = Math.floor(Math.random() * this.props.times.length);
+                    // obj = this.props.verb.conj.filter((item) => {
+                    //     return item.time === this.props.times[rollTense].time;
+                    // });
+                    // if(obj.length===0)console.log('!props.time - 111');
+                //} else {
+
+                    //if time length === 1 it still rolls even though there's no need -not the problem cus its
+                    //always 0 - the first element
+                    rollTense = Math.floor(Math.random() * this.props.time.length);
+                    obj = this.props.verb.conj.filter((item) => {
+                        return item.time === this.props.time[rollTense];
+                    });
+                    if(obj.length===0)console.log('LOL?', rollTense);
+                    // console.log('LOL verb', this.props.verb);
+               // }
             }
-            //   var rollTense = Math.floor(Math.random() * this.props.time.length);
-            //    const obj = this.props.verb.conj.filter((item) => {
-            //         return item.time === this.props.time[rollTense];
-            //     });
            
             this.picked = obj[0][picked];
             this.tense = obj[0].time;
+            let french_substitute = picked;
+            //only 2 german fields need altering
+            if(french_substitute === 'er_sie_es') french_substitute = 'er, sie, es';
+            if(french_substitute === 'sie_Sie') french_substitute = 'sie, Sie';
+            //change german to french just visually
+            if(this.props.lang === 'french'){
+                if(picked === 'ich') french_substitute = 'je';
+                if(picked === 'du') french_substitute = 'tu';
+                if(picked === 'er_sie_es') french_substitute = 'il, elle';
+                if(picked === 'wir') french_substitute = 'nous';
+                if(picked === 'ihr') french_substitute = 'vous';
+                if(picked === 'sie_Sie') french_substitute = 'ils, elles';
+            }
             return ( //({ obj[0][picked] }) 
                 <div className="input-person">
-                     { picked } 
+                     { french_substitute } 
                 </div>
             );
         }
@@ -62,13 +101,11 @@ class CorrectVerb extends Component {
     checkAnswer(){
        if(this.answer && this.picked) {
            if(this.answer === this.picked){
-            //    this.setState({ answer: undefined });
                this.answer = null;
-            //    this.props.fetchVerb(this.props.time);
                 if(!this.props.time){
-                    this.props.fetchVerb(this.props.times);
+                    this.props.fetchVerb(this.props.times, this.defaultLang);
                 } else {
-                    this.props.fetchVerb(this.props.time);
+                    this.props.fetchVerb(this.props.time, this.defaultLang);
                 }
            }
        } 
@@ -85,18 +122,13 @@ class CorrectVerb extends Component {
         }
     }
     handleRefresh(){
-        // console.log('handling refresh icon..');
-        // console.log(this.props.time);
-        // console.log(this.props.times);
         if(!this.props.time){
-            //  console.log('xD');
-            this.props.fetchVerb(this.props.times);
+            this.props.fetchVerb(this.props.times, this.defaultLang);
         } else {
-            this.props.fetchVerb(this.props.time);
+            this.props.fetchVerb(this.props.time, this.defaultLang);
         }
     }
     render(){
-        console.log('OPEN', this.props.open);
         //  + (this.props.push ? 'app-push' : '')
         return (
             <div className={"verb-container "}>
@@ -120,9 +152,11 @@ function mapStateToProps(state){
     return { 
      verb: state.verb,
      time: state.time,
-     times: state.times,
+     times: state.times,//german
+     french_tenses: state.french_tenses,
+     lang: state.lang
     //  push: state.pushContent
     };
 }
 
-export default connect(mapStateToProps, { fetchVerb })(CorrectVerb);
+export default connect(mapStateToProps, { fetchVerb, selectTime, resetVerb })(CorrectVerb);

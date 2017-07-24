@@ -10,8 +10,21 @@ class DisplayTimes extends Component {
         super(props);
         this.state = { tense: [] };
     }
+    componentDidMount(){
+        // console.log('me mounted', this.props.time);
+        // console.log('current verb - display', this.props.verb);
+    }
     renderTimes(){//props.selectTime(tt)
-        return this.props.times.map((tt) => {
+        let properTenses;
+        if(this.props.lang === "german"){
+            properTenses = this.props.times;
+        } else if(this.props.lang === "french"){
+            properTenses = this.props.french_tenses;
+        } else {
+            properTenses = this.props.times;//default to german tenses
+        }
+        // console.log('tenses based on language', properTenses);
+        return properTenses.map((tt) => {
             return (
                 <li
                   className="tense-link-li"
@@ -47,17 +60,17 @@ class DisplayTimes extends Component {
             );
         } else {
             return (
-                <div className="practice-link">
-                    <Link to='/verb' onClick={() => this.props.selectTime(this.state.tense)}>Click to Practise</Link>
+                <div className="practice-link" onClick={() => this.props.selectTime(this.state.tense)}>
+                    <Link to='/verb'>Click to Practise</Link>
                 </div>
             );
         }
         //this.props.selectTime(this.state.tense)
     }
     render(){
+        // console.log(this.props.french_tenses);
         // console.log('Read global state', this.props);
         // console.log('HOME push', this.props.pushContent);
-        // console.log(this.state.tense);
         return (
             // // <div className={"app-container " + (this.props.pushContent ? 'app-push' : '')}>
             <div className={"push-container " + (this.props.push ? 'app-push' : '')}>
@@ -66,7 +79,13 @@ class DisplayTimes extends Component {
                 {/* <p>Only present tenses for now</p> */}
                 <ul className="tense-ul">
                     <li className="tense-link-li">
-                        <Link className="tense-link-li" to='/verb'>
+                        <Link className="tense-link-li" to='/verb' onClick={() => {
+                            if(this.props.lang === 'french'){
+                                this.props.selectTime(this.props.french_tenses);
+                            } else {
+                                this.props.selectTime(this.props.times);
+                            }
+                        }}>
                             <div className="tense-link all-tenses">all of them</div>
                         </Link>
                     </li>
@@ -83,7 +102,11 @@ class DisplayTimes extends Component {
 function mapStateToProps(state){
     return {
         times: state.times,
-        push: state.pushContent
+        time: state.time,
+        push: state.pushContent,
+        lang: state.lang,
+        french_tenses: state.french_tenses,
+        verb: state.verb
     };
 }
 
