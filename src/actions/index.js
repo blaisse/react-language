@@ -39,11 +39,13 @@ export function hideChat(){
 export function signupUser({ email, password }, obj){
     return function(dispatch){
         axios.post(`${ROOT_URL}/signup`, { email, password }).then(response => {
+            // console.log('REWS', response.data);
             //log user in
             dispatch({ type: SIGNIN_USER });
             //save token
             localStorage.setItem('token', response.data.token);
             localStorage.setItem('username', response.data.username);
+            console.log('Signed UP');
             //redirect somewhere
             obj.props.history.push('/');
         }).catch((e) => {

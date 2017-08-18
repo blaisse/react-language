@@ -10,7 +10,7 @@ class ChatApp extends Component {
     constructor(props){
         super(props);//{ 'German': [], 'French': [] }
         this.state = { room: 'German', users: [], messages: [], sign: false };
-        // this.socket = io('http://localhost:3007');
+        // this.socket = io('http://localhost:3007'); 
         this.socket = io('https://safe-badlands-67690.herokuapp.com');
     }
     // shouldComponentUpdate(nextProps){
@@ -182,7 +182,7 @@ class ChatApp extends Component {
             this.socket.disconnect();
             // this.setState({ ...this.state, messages: [] });
         return (
-            <div>Sign In FOOL</div>
+            <div className="sign-in-message">Sign In FOOL</div>
         );
         } else {
             this.socket.connect();

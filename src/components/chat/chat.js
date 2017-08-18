@@ -15,6 +15,7 @@ class Chat extends Component {
         //     console.log('click --- auth BAD');
         //     this.props.hideChat();
         // } else
+        // console.log('?D?WD?QWED?WE?D?',this.props.authenticated);
          if(this.props.expanded && this.state.class === "chat-icon chat-icon-expanded"){
             // console.log('CSS hide -> display: none for now');
             const c = `${this.divChat.className} chat-hide`;
