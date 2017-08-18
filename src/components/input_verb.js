@@ -8,7 +8,7 @@ import SpecialCharacters from './special_characters';
 class InputVerb extends Component {
     constructor(props){
         super(props);
-        this.state = { answer: "", incorrect: false };
+        this.state = { answer: "", incorrect: false, correct: false };
     }
     renderField(){
         return (
@@ -47,8 +47,10 @@ class InputVerb extends Component {
     // }
     onSubmit(event){
         event.preventDefault();
-        if(this.state.answer === this.props.picked) this.setState({ answer: "", incorrect: false });
-        if(this.state.answer !== this.props.picked) this.setState({ answer: "", incorrect: true });
+        if(this.state.answer === this.props.picked) this.setState({ answer: "", incorrect: false, correct: true }, () => {
+            console.log(' ? ?FW?F',this.state.correct);
+        });
+        if(this.state.answer !== this.props.picked) this.setState({ answer: "", incorrect: true, correct: false });
         this.props.onAnswerChange(this.state.answer);
     }
     handleCharacterClick(id){
@@ -65,7 +67,7 @@ class InputVerb extends Component {
         return(
             <div>
                 <form onSubmit={this.onSubmit.bind(this)}>
-                     <input ref={ input => this.verbInput = input } className={"input-verb "+(this.state.incorrect ? 'incorrect' : '')} type="text" autoFocus={true} value={this.state.answer} onChange={this.props.handleVerb.bind(this)} /> 
+                     <input ref={ input => this.verbInput = input } className={"input-verb "+(this.state.incorrect ? 'incorrect' : '')+(this.state.correct ? ' very-correct' : '')} type="text" autoFocus={true} value={this.state.answer} onChange={this.props.handleVerb.bind(this)} /> 
                      {/* <input ref={ input => this.verbInput = input } className={"input-verb "+(this.state.incorrect ? 'incorrect' : '')} type="text" autoFocus={true} value={this.state.answer} onChange={this.handleChange.bind(this)} />  */}
                 </form>
                 {this.displaySpecialCharacters()}

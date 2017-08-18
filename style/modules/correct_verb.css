@@ -53,6 +53,10 @@
 .incorrect {
     border: 1px solid red;
 }
+.very-correct {
+    border: 1px solid #94ef94; 
+    /* background: #94ef94; */
+}
 .verb-hint {
     /* opacity: 0; */
     color: black;

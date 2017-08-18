@@ -9,6 +9,7 @@ class DisplayNoun extends Component {
     constructor(props){
         super(props);
         this.default_language = 'german';
+        this.state = { correct: "3" };
     }
     componentWillMount(){
         if(this.props.lang){
@@ -16,10 +17,29 @@ class DisplayNoun extends Component {
         }
         this.props.fetchNoun(this.default_language);
     }
-    handleNoun(article, word){
+    handleNoun(article, word, inpt){
         if(word === this.props.noun.word && article === this.props.noun.article){
-            this.props.fetchNoun(this.default_language);
+            this.setState({ correct: "1" }, () => {
+                
+            });
+            setTimeout(() => {
+                // async function huh(){
+                //     console.log('async', this);
+                //     await 
+                    
+                // }
+                this.props.fetchNoun(this.default_language);
+                this.setState({ correct: "3" });
+                
+            }, 1000);
+            
+            // this.setState({ correct: "3" });
             // console.log('ALL GOOD');
+        } else {
+            // console.log('wrong');
+            this.setState({ correct: "2" }, () => {
+
+            });
         }
     }
     displayContent(){
@@ -32,7 +52,7 @@ class DisplayNoun extends Component {
             return (
                 <div className="noun-content">
                     <div className="noun-meaning">{this.props.noun.meaning}</div>
-                    <Compund sendInput={this.handleNoun.bind(this)} />
+                    <Compund sendInput={this.handleNoun.bind(this)} correct={this.state.correct} />
                     {/* <InputNoun sendInput={this.handleNoun.bind(this)} /> */}
                 </div>
             );
@@ -43,7 +63,6 @@ class DisplayNoun extends Component {
         return (
             <div className="verb-container">
                 {this.displayContent()}
-                
             </div>
         );
     }

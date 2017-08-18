@@ -34,11 +34,12 @@ function handleKey(event){
      x.click();
   }
   if(event.keyCode === 112){
-    
     let c = document.querySelector('.chat-click');
-    // console.log('F1 very clicked', c);
+    let i = document.querySelector('.chat-input');
+    let all = document.querySelector('.chat-icon-expanded');
     c.click();
-    focusDiv();
+    // c.focus();
+    // focusDiv();
   }
  
 }

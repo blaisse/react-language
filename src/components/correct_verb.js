@@ -119,6 +119,7 @@ class CorrectVerb extends Component {
        if(this.answer && this.picked) {
            if(this.answer === this.picked){
                this.answer = null;
+            //    console.log('so correct:LLLL', document.querySelector('.verb-container').className);
                 if(!this.props.time){
                     this.props.fetchVerb(this.props.times, this.defaultLang);
                 } else {

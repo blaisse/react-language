@@ -27,7 +27,7 @@ class InputNoun extends Component {
     }
     onSubmit(event){
         event.preventDefault();
-        this.props.sendInput(this.state.article, this.state.value);
+        this.props.sendInput(this.state.article, this.state.value, this.nameInput);
         this.nameInput.focus();
         this.setState({ value: "", article: "" });
         // this.forceUpdate();
@@ -40,8 +40,8 @@ class InputNoun extends Component {
         return (
             <div className="verb-container ">
                 <form className="noun-form" onSubmit={this.onSubmit.bind(this)}>
-                    <input className="article-input" ref={input => this.nameInput = input} type='text' placeholder='article..' onChange={this.handleArticle.bind(this)} value={this.state.article} autoFocus={true} />
-                    <input ref={input => this.wordInput = input} type='text' placeholder='noun..' onChange={this.props.handleSth.bind(this)} value={this.state.value} autoFocus={false} /> 
+                    <input className={"article-input "+(this.props.correct === "2" ? 'incorrect' : '')+(this.props.correct === "1" ? ' very-correct' : '')} ref={input => this.nameInput = input} type='text' placeholder='article..' onChange={this.handleArticle.bind(this)} value={this.state.article} autoFocus={true} />
+                    <input className={(this.props.correct === "2" ? 'incorrect' : '')+(this.props.correct === "1" ? ' very-correct' : '')} ref={input => this.wordInput = input} type='text' placeholder='noun..' onChange={this.props.handleSth.bind(this)} value={this.state.value} autoFocus={false} /> 
                      {/* <input ref={input => this.wordInput = input} type='text' placeholder='noun..' onChange={this.handleChange.bind(this)} value={this.state.value} autoFocus={false} />  */}
                     <button className="hide-button">Submit</button>
                 </form>
