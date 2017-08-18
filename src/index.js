@@ -33,6 +33,13 @@ function handleKey(event){
      let x = document.querySelector('.menu-icon');
      x.click();
   }
+  if(event.keyCode === 112){
+    
+    let c = document.querySelector('.chat-click');
+    // console.log('F1 very clicked', c);
+    c.click();
+    focusDiv();
+  }
  
 }
 function focusDiv(){

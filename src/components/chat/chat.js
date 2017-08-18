@@ -54,13 +54,13 @@ class Chat extends Component {
     }
     renderButton(){
         if(!this.props.authenticated && !this.props.expanded){
-            return <div className={"chat-icon"} onClick={this.handleClick.bind(this)}>Sign In To Chat</div>;
+            return <div className={"chat-click chat-icon"} onClick={this.handleClick.bind(this)}>Sign In To Chat</div>;
         } else if(!this.props.expanded && !this.state.mounted){//both false, chat was never mounted
-            return <div className={"chat-icon"} onClick={this.handleClick.bind(this)}>Chat</div>;
+            return <div className={"chat-click chat-icon"} onClick={this.handleClick.bind(this)}>Chat</div>;
         } else if(this.state.class === "chat-icon chat-icon-expanded chat-hide"){
-            return <div className={"chat-icon"} onClick={this.handleClick.bind(this)}>Chat</div>;
+            return <div className={"chat-click chat-icon"} onClick={this.handleClick.bind(this)}>Chat</div>;
         } else {
-            return <div className="chat-icon-expanded-button" onClick={this.handleClick.bind(this)}>Hide</div>;
+            return <div className="chat-click chat-icon-expanded-button" onClick={this.handleClick.bind(this)}>Hide</div>;
         }
     }
     render(){

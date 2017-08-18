@@ -37,7 +37,7 @@ class SignIn extends Component {
             <div className={"push-container " + (this.props.push ? 'app-push' : '')}>
                 <div className="add-verb-container">
                     <form onSubmit={handleSubmit(this.handleForm.bind(this))}>
-                            <Field auto="true" type="text" label="Email" name="email" component={this.renderField} />
+                            <Field auto="true" type="text" label="Username" name="email" component={this.renderField} />
                             <Field type="password" label="Password" name="password" component={this.renderField} />
                             {this.renderError()}
                             <button type="submit">Sign In</button>                      

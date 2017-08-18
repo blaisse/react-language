@@ -182,7 +182,7 @@ class ChatApp extends Component {
             this.socket.disconnect();
             // this.setState({ ...this.state, messages: [] });
         return (
-            <div className="sign-in-message">Sign In FOOL</div>
+            <div className="sign-in-message">Sign In First</div>
         );
         } else {
             this.socket.connect();
