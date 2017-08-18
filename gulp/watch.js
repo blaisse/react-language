@@ -3,7 +3,7 @@ import watch from 'gulp-watch';
 var browserSync = require('browser-sync').create();
 
 gulp.task('watch', () => {
-    gulp.watch('./style/*.css', () => {
+    gulp.watch('./style/**/*.css', () => {
         gulp.start('cssRebuild');
     });
 });

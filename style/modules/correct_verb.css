@@ -1,0 +1,68 @@
+.verb-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    font-family: 'PT Serif', serif;    
+    font-size: 1.2em;
+}
+.verb-inner {
+    max-width: 600px;
+    padding: 50px;
+    display: flex;
+    flex-direction: column;
+}
+.verb-inner-meaning {
+    font-size: 1.1em;
+    /* margin-left: 100px; */
+    color: #ff9e9e;
+    width: 100%;
+    text-align: center;
+}
+.input-field {
+    padding: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+.input-verb {
+    padding: 10px;
+    font-size: 1.0em;
+    margin-left: 20px;
+    margin-top: 10px;
+    outline: none;
+}
+@media (max-width: 600px){
+    .input-verb {
+        margin: 0 auto;
+        margin-top: 15px;
+    }
+    .input-person {
+        width: 100%;
+    }
+}
+.input-person {
+    min-width: 80px;
+    display: flex;
+    /* align-items: center; */
+    margin-top: 10px;
+    justify-content: center;
+    margin-top: 20px;
+}
+.incorrect {
+    border: 1px solid red;
+}
+.verb-hint {
+    /* opacity: 0; */
+    color: black;
+     display: flex; 
+    flex-direction: row;
+    margin-top: 10px;
+}
+.verb-hint span {
+    width: 100%;
+    text-align: center;
+    font-size: 0.9em;
+    margin-right: 3px;
+}

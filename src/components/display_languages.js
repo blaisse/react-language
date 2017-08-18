@@ -8,7 +8,10 @@ class DisplayLanguages extends Component {
         return this.props.languages.map((item) => {
             // console.log(item);
             return (
-                <div className="single-language" key={item} onClick={() => this.props.selectLanguage(item)}>
+                <div className="single-language" key={item} onClick={() => {
+                    this.props.selectLanguage(item);
+                    document.querySelector('.hitler').focus();
+                    }}>
                     <Link to='/tenses'>{this.displayFlag(item)}</Link>
                 </div>
             );
@@ -33,7 +36,7 @@ class DisplayLanguages extends Component {
         return (
              <div className={"push-container " + (this.props.push ? 'app-push' : '')}>
                 <div className="app-container app-container-front">
-                    <h2>Select a language to learn</h2>
+                    <h2 className="flags-header">Select a language to learn</h2>
                     <div className="flags-container">
                         <div className="flags-container-flags">{this.renderLanguages()}</div>
                     </div>

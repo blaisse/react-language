@@ -1,0 +1,40 @@
+.flags-h2 {
+    color: pink;
+}
+.single-language {
+    margin-bottom: 20px;
+
+    a {
+        text-decoration: none;
+    }
+    img {
+        width: 200px;
+        height: 120px;
+    }
+    @mixin atMedium {
+        margin-left: 30px;
+        img {
+            width: 300px;
+            height: 200px;
+        }
+    }
+    &:hover {
+        opacity: 0.6;
+    }
+}
+.flags-container {
+     display: flex; 
+     margin-top: 20px;
+     justify-content: center; 
+     align-items: center;   
+     &-flags {
+         display: flex;
+         flex-direction: column;
+         @mixin atMedium{
+             flex-direction: row;
+         }
+     }
+    @mixin atMedium {
+        margin-top: 60px;
+    }
+}

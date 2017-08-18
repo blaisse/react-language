@@ -1,18 +1,23 @@
 import React, { Component } from 'react';
-import { Field, reduxForm } from 'redux-form';
+import { Field, reduxForm, formValueSelector } from 'redux-form';
 import { connect } from 'react-redux';
-import { createVerb, fetchWord, patchVerb } from './../actions';
+import { createVerb, fetchWord, patchVerb, selectLanguage } from './../actions';
+import SpecialCharacters from './special_characters';
  
 class AddVerb extends Component {
     constructor(props){
         super(props);
 
-        this.state = { sameTense: false, tense: "", language: 'german' };
-    }
+        this.state = { sameTense: false, tense: "", language: 'german'};
+    }  
     renderField(field){
+        // const o = "1";
+        // const one = o => String.fromCodePoint(252);
         const { meta: { touched, error } } = field;//field.meta.touched and field.meta.error
         const className = `input-error-container ${touched && error ? 'input-error-text' : ''}`;
         const classNameInput = `${touched && error ? 'input-error' : ''}`;
+        // console.log('field', field);
+        // console.log(this);
         return (
             <div className="add-verb-input">
                 <div className="add-verb-input-row">
@@ -23,12 +28,15 @@ class AddVerb extends Component {
             </div>
         );
     }
+   
     onSubmit(values){
-        //values are in a different format than needed to post to DB  
+        //values are in a different format than needed to post to DB
+        let l = this.props.lang;
+        if(!l) l = 'german';  
         const db_obj = {
             word: values.word,
             meaning: values.meaning,
-            lang: this.state.language,
+            lang: l,
             conj: [
                 { 
                     time: values.time,
@@ -63,7 +71,6 @@ class AddVerb extends Component {
                         });
                     }
                 });
-                console.log('state', this.state);
                 if(!this.state.sameTense){
                     this.setState({ sameTense: false, tense: "", language: this.state.language });
                     //tenses are different - update record
@@ -76,7 +83,7 @@ class AddVerb extends Component {
         });
     }
     renderLanguage(){
-        if(this.state.language === 'german'){
+        if(this.props.lang === 'german' || this.props.lang === null){
             return (
                 <div className="add-verb-click">French</div>
             );
@@ -87,20 +94,23 @@ class AddVerb extends Component {
         }
     }
     handleLanguage(){
-        if(this.state.language === 'german'){
-            this.setState({ sameTense: this.state.sameTense, tense: this.state.tense, language: 'french' }, () => {
-                console.log(this.state);
-            });
+        if(this.props.lang === 'german' || this.props.lang === null){
+            this.props.selectLanguage('french');
+            // this.setState({ sameTense: this.state.sameTense, tense: this.state.tense, language: 'french' }, () => {
+            //     console.log(this.state);
+            // });
         } else {
-            this.setState({ sameTense: this.state.sameTense, tense: this.state.tense, language: 'german' });
+            this.props.selectLanguage('german');
+            // this.setState({ sameTense: this.state.sameTense, tense: this.state.tense, language: 'german' });
         }
     }
+    handleNothing(){}
     render(){
         const { handleSubmit } = this.props;
         let p;
-        if(this.state.language === 'german'){
+        if(this.props.lang === 'german' || this.props.lang === null){
             p = ['Ich', 'Du', 'Er, sie, es', 'Wir', 'Ihr', 'Sie, sie'];
-        } else if(this.state.language === 'french'){
+        } else if(this.props.lang === 'french'){
             p = ['Je', 'Tu', 'Il, elle', 'Nous', 'Vous', 'Ils, elles'];
         }
         return (
@@ -111,7 +121,7 @@ class AddVerb extends Component {
                     {this.renderLanguage()}
                 </div>
                 <form onSubmit={handleSubmit(this.onSubmit.bind(this))} autoComplete="off">
-                    <Field label="Verb" name="word" component={this.renderField} />
+                    <Field normalize={this.props.handleAddVerb.bind(this)} label="Verb" name="word" component={this.renderField} />
                     <Field label="Meaning" name="meaning" component={this.renderField} />
                     <Field label="Tense" name="time" component={this.renderField} />
                     {/* <Field label="Language" name="lang" component={this.renderField} /> */}
@@ -119,14 +129,15 @@ class AddVerb extends Component {
                         this.state.sameTense === true &&
                         <div className="same-tense">This tense has already been added</div>
                     }
-                    <Field label={p[0]} name="ich" component={this.renderField} />
-                    <Field label={p[1]} name="du" component={this.renderField} />
-                    <Field label={p[2]} name="er_sie_es" component={this.renderField} />
-                    <Field label={p[3]} name="wir" component={this.renderField} />
-                    <Field label={p[4]} name="ihr" component={this.renderField} />
-                    <Field label={p[5]} name="sie_Sie" component={this.renderField} />
+                    <Field normalize={this.props.handleAddVerb.bind(this)} label={p[0]} name="ich" component={this.renderField} />
+                    <Field normalize={this.props.handleAddVerb.bind(this)} label={p[1]} name="du" component={this.renderField} />
+                    <Field normalize={this.props.handleAddVerb.bind(this)} label={p[2]} name="er_sie_es" component={this.renderField} />
+                    <Field normalize={this.props.handleAddVerb.bind(this)} label={p[3]} name="wir" component={this.renderField} />
+                    <Field normalize={this.props.handleAddVerb.bind(this)} label={p[4]} name="ihr" component={this.renderField} />
+                    <Field normalize={this.props.handleAddVerb.bind(this)} label={p[5]} name="sie_Sie" component={this.renderField} />
                     <button type="submit">Save</button>
                 </form>
+                <SpecialCharacters handleClick={this.handleNothing} />
             </div>
          </div>
         );
@@ -136,7 +147,8 @@ class AddVerb extends Component {
 function mapStateToProps(state){
     return {
         word: state.word,
-        push: state.pushContent
+        push: state.pushContent,
+        lang: state.lang
     };
 }
 
@@ -159,5 +171,5 @@ export default reduxForm({
     validate,
     form: 'PostVerb'
 })(
-    connect(mapStateToProps, { createVerb, fetchWord, patchVerb })(AddVerb)
+    connect(mapStateToProps, { createVerb, fetchWord, patchVerb, selectLanguage })(AddVerb)
 );

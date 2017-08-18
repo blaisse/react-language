@@ -1,0 +1,65 @@
+.tense-ul {
+    margin-top: 30px;
+    margin-bottom: 30px;
+    width: 200px;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.tense-link-li {
+    text-decoration: none;
+    list-style: none;
+    font-size: 1.2em;
+    width: 100%;
+}
+.tense-link {
+     /* width: 100%;  */
+    text-align: center;
+    /* padding: 5px;  */
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+    border: 1px solid black;
+    /* background: tomato;  */
+    margin-bottom: 5px;
+    background-color: white;
+    transition: background-color 1s ease-out; 
+    /* transition-property: background-color,color;  */
+    color: black;
+    /* transition: color 0.5s; */
+    
+    /* margin-right: 30px; */
+}
+.tense-link:hover {
+    /* background-color: #ff9e9e; */
+}
+.tense-clicked {
+    /* background: #ffc9ad; */
+     background-color: #ff9e9e; 
+    /* background: #ffcab7; */
+    /* color: #f9f9f9; */
+    color: black;
+}
+.all-tenses {
+    /* background: tomato; */
+    color: black;
+    font-size: 0.8em;
+    /* background: #ffeccc; */
+    background-color: #ffd272;
+    transition: background-color 2s;
+    text-decoration: none;
+}
+.all-tenses:hover {
+    background-color: #fcbe92;
+}
+.practice-link a{
+    color: black;
+    font-size: 1.2em;
+    text-decoration: none;
+}
+.practice-link a:hover {
+    color: #ff9e9e;
+}

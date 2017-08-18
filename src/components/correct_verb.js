@@ -5,6 +5,8 @@ import InputVerb from './input_verb';
 import DisplayAnswer from './display_answer';
 import _ from 'lodash';
 import classNames from 'classnames';
+import HandleSpecial from './hoc_special';
+
 
 class CorrectVerb extends Component {
     constructor(props){
@@ -15,7 +17,22 @@ class CorrectVerb extends Component {
         this.defaultLang = 'german';
     }
     shouldComponentUpdate(nextProps){
-        return this.props.open === nextProps.open; 
+        // return this.props.open === nextProps.open; 
+        if(nextProps.open){
+           return this.props.open === nextProps.open;  
+        }
+        if(this.props.open){
+            return this.props.open === nextProps.open;
+        }
+        if(nextProps.expanded){
+            console.log('?????', nextProps.expanded);
+            return this.props.expanded === nextProps.expanded;
+        }
+        if(this.props.expanded){
+            return this.props.expanded === nextProps.expanded;
+        }
+        return this.props.expanded === nextProps.expanded;
+        // return this.props.open === nextProps.open; 
     }
     componentWillMount(){
         if(!this.props.lang){
@@ -128,8 +145,11 @@ class CorrectVerb extends Component {
             this.props.fetchVerb(this.props.time, this.defaultLang);
         }
     }
+ 
     render(){
         //  + (this.props.push ? 'app-push' : '')
+        const Composed = HandleSpecial(InputVerb);
+        
         return (
             <div className={"verb-container "}>
                 <div className="verb-inner">
@@ -138,10 +158,13 @@ class CorrectVerb extends Component {
                 <span className="verb-inner-meaning">{this.props.verb.meaning}</span>
                 <div className={"input-field"}>
                     {this.pickRandomPerson()}
-                    <InputVerb picked={this.picked} onAnswerChange={this.inputAnswer.bind(this)}  />
+                    {/* make it composed */}
+                    {/* <InputVerb picked={this.picked} onAnswerChange={this.inputAnswer.bind(this)}  /> */}
+                    <Composed picked={this.picked} onAnswerChange={this.inputAnswer.bind(this)} />
                 </div>  
                 <div className="display-tense">{this.tense}</div>  
                  <DisplayAnswer picked={this.picked} answer={this.answer} /> 
+
                  </div>
             </div>
         );
@@ -154,7 +177,8 @@ function mapStateToProps(state){
      time: state.time,
      times: state.times,//german
      french_tenses: state.french_tenses,
-     lang: state.lang
+     lang: state.lang,
+     expanded: state.chat.expanded
     //  push: state.pushContent
     };
 }

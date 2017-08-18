@@ -1,0 +1,33 @@
+.special-characters {
+    display: flex;
+    margin-top: 20px;
+    flex-direction: column;
+    &-clicks {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        div {
+            margin: 5px;
+            padding: 10px;
+            padding-left: 20px; 
+            padding-right: 20px;
+            /* display: flex; */
+            /* justify-content: space-around; */
+            border: 1px solid #e0e0e0;
+        }
+    }
+    &-numeric {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        &-verb {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around; 
+            padding: 0;
+            div {
+                
+            }
+        }
+    }
+}
