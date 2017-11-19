@@ -17,14 +17,19 @@ import AddNoun from './components/add_noun';
 import FlashcardsGrid from './components/flashcards_grid';
 import Menu from './components/menu';
 import Main from './components/main';
-import SignUp from './components/auth/signup';
+import SignUp from './components/auth/signup'; 
 import SignIn from './components/auth/signin';
 import SignOut from './components/auth/signout';
 import Chat from './components/chat/chat';
+import Plural from './components/plural';
+import FlashcardContainer from './components/flashcard_container';
+import FlashcardShow from './components/flashcard_show';
+import FlashcardShowOne from './components/flashcard_show_one';
+import SentenceBlocks from './components/sentence/sentence_blocks';
 
 import HandleSpecial from './components/hoc_special';
 import RequireAuth from './components/auth/require_auth';
-import { SIGNIN_USER } from './actions';
+import { SIGNIN_USER, SELECTED_LANGUAGE } from './actions';
 
 const createStoreWithMiddleware = applyMiddleware(promise, reduxThunk)(createStore);
 
@@ -55,6 +60,11 @@ const store = createStoreWithMiddleware(reducers);
 const token = localStorage.getItem('token');
 if(token){
   store.dispatch({ type: SIGNIN_USER });
+  store.dispatch({ type: SELECTED_LANGUAGE, payload: localStorage.getItem('lang') });
+} else {
+  //no account
+  localStorage.setItem('lang', 'french');
+  store.dispatch({ type: SELECTED_LANGUAGE, payload: localStorage.getItem('lang') });
 }
 
 ReactDOM.render(
@@ -73,6 +83,11 @@ ReactDOM.render(
           <Route exact path="/signup" component={SignUp} />
           <Route exact path="/signin" component={SignIn} />
           <Route exact path="/signout" component={SignOut} />
+          <Route exact path="/plural" component={Plural} />
+          <Route exact path="/createflashcard" component={RequireAuth(FlashcardContainer)} />
+          <Route exact path="/showflashcards" component={RequireAuth(FlashcardShow)} />
+          <Route exact path="/showflashcard/:id" component={FlashcardShowOne} />
+          <Route exact path="/blocks" component={SentenceBlocks} />
         </Switch>
         <Chat />
       </div>

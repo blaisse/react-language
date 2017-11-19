@@ -40,7 +40,6 @@ class ChatApp extends Component {
                 console.log('update users!', users);
                 // const u = app.state.users;
                 // u.push(users);
-                console.log('??? og om gom', app);
                 app.setState({ ...app.state, users });
             });
             this.socket.on('newMessage', function(message){
@@ -53,16 +52,13 @@ class ChatApp extends Component {
                 app.setState({ ...app.state, messages: x });
             });
         } else {
-            console.log('sign in idiot');
             this.setState({ ...this.state, sign: true });
-            
         }
     }
     componentWillReceiveProps(nextProps){
         if(nextProps.authenticated){
-            // console.log('very next props ahhh');
             this.setState({ ...this.state, sign: false }, () => {
-                // console.log('HELLOO');
+
             });
             
         }
@@ -86,13 +82,12 @@ class ChatApp extends Component {
         }
     }
     handleSocket(){
-        console.log('WOWOWOWOWOWOW');
         const app = this;
         const params = {
             room: 'German',
             username: localStorage.getItem('username')
         };
-        console.log('PPPP', params);
+        // console.log('PPPP', params);
         this.socket.emit('joinGerman', params, (err) => {
             if(err){
                 console.log('err');
@@ -102,7 +97,7 @@ class ChatApp extends Component {
         });
         // this.setState({ ...this.state, room: 'German', messages: [] });
         this.socket.on('updateUsers', function(users){
-            console.log('update users!', users);
+            // console.log('update users!', users);
             // const u = app.state.users;
             // u.push(users);
             app.setState({ ...app.state, users });
@@ -169,10 +164,26 @@ class ChatApp extends Component {
         }
 
     }
+    handleUserClick(user){
+        //user - clicked user
+        //get name of the one who clicked from local storage
+        const app = this;
+        const params = {
+            from: localStorage.getItem('username'),
+            to: user
+        }
+        app.socket.emit('privateMessage', params, (err) => {
+            if(err) console.log('err', err);
+        });
+        this.setState({ ...this.state, private: true }, () => {
+            console.log(this.state.private);            
+        });
+        console.log('click', app);
+    }
     renderUsers(){
         return this.state.users.map((user) => {
             return (
-                <div key={user}>{user}</div>
+                <div key={user} onClick={() => this.handleUserClick(user)}>{user}</div>
             );
         });
     }
@@ -188,13 +199,19 @@ class ChatApp extends Component {
             this.socket.connect();
             return [
                 <div key="1" className="chat-container-left">
-                    <div className="chat-container-left-rooms">
-                        {this.renderRooms()}
+                    <div className="chat-container-left-inner">
+                        <div className="chat-container-left-rooms">
+                            {this.renderRooms()}
+                        </div>
+                        <div className="chat-container-left-users">
+                            <p>Signed in:</p>
+                            {this.renderUsers()}
+                        </div>
                     </div>
-                    <div className="chat-container-left-users">
-                        <p>Signed in:</p>
-                        {this.renderUsers()}
-                    </div>
+                    {/* <div className="chat-container-left-private">
+                        <ChatMessages socket={this.socket} messages={this.state.messages} />
+                        <ChatInput socket={this.socket} />
+                    </div> */}
                 </div>,
                 <div key="2" className="chat-container-right">
                     <ChatMessages socket={this.socket} messages={this.state.messages} />

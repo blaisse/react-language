@@ -42,6 +42,7 @@
     "chai": "^3.5.0",
     "chai-jquery": "^2.0.0",
     "classnames": "^2.2.5",
+    "draft-js": "^0.10.1",
     "express": "^4.15.3",
     "gulp": "^3.9.1",
     "gulp-postcss": "^7.0.0",

@@ -25,7 +25,7 @@ class CorrectVerb extends Component {
             return this.props.open === nextProps.open;
         }
         if(nextProps.expanded){
-            console.log('?????', nextProps.expanded);
+            // console.log('?????', nextProps.expanded);
             return this.props.expanded === nextProps.expanded;
         }
         if(this.props.expanded){
@@ -108,12 +108,20 @@ class CorrectVerb extends Component {
                 if(picked === 'ihr') french_substitute = 'vous';
                 if(picked === 'sie_Sie') french_substitute = 'ils, elles';
             }
-            return ( //({ obj[0][picked] }) 
-                <div className="input-person">
-                     { french_substitute } 
-                </div>
-            );
+            this.substitute = french_substitute;
+            // return (
+            //     <div className="input-person">
+            //          { french_substitute } 
+            //     </div>
+            // );
         }
+    }
+    displaySub(){
+        return (
+            <div className="input-person">
+                    { this.substitute } 
+            </div>
+        );
     }
     checkAnswer(){
        if(this.answer && this.picked) {
@@ -135,7 +143,7 @@ class CorrectVerb extends Component {
     displayDiv(){
         if(!this.props.verb.meaning){
             return (
-                <div>Please wait</div>
+                <div className="loader"></div>
             );
         }
     }
@@ -150,21 +158,23 @@ class CorrectVerb extends Component {
     render(){
         //  + (this.props.push ? 'app-push' : '')
         const Composed = HandleSpecial(InputVerb);
-        
+        this.pickRandomPerson();
         return (
             <div className={"verb-container "}>
-                <div className="verb-inner">
                 {this.displayDiv()}
+                <div className="verb-inner">
+                
                 <span className="refresh-icon"><i className="fal fa-redo" onClick={this.handleRefresh.bind(this)}></i></span>
-                <span className="verb-inner-meaning">{this.props.verb.meaning}</span>
+                <span className="verb-inner-meaning">{this.props.verb.meaning} {this.tense}</span>
+                {/* <span className="verb-inner-meaning">{this.tense}</span> */}
                 <div className={"input-field"}>
-                    {this.pickRandomPerson()}
+                    {this.displaySub()}
                     {/* make it composed */}
                     {/* <InputVerb picked={this.picked} onAnswerChange={this.inputAnswer.bind(this)}  /> */}
                     <Composed picked={this.picked} onAnswerChange={this.inputAnswer.bind(this)} />
                 </div>  
-                <div className="display-tense">{this.tense}</div>  
-                 <DisplayAnswer picked={this.picked} answer={this.answer} /> 
+                {/* <div className="display-tense">{this.tense}</div>   */}
+                 {/* <DisplayAnswer picked={this.picked} answer={this.answer} />  */}
 
                  </div>
             </div>

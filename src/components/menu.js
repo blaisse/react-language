@@ -62,6 +62,8 @@ class Menu extends Component {
                 <Link to="/tenses">Tenses</Link>
                 <Link to="/noun">Practise Nouns</Link>
                 <Link to="flashcards">Flashcards</Link>
+                <Link to="/plural">Plural</Link>
+                <Link to="/blocks">Blocks</Link>
                 </div>
                 {this.renderSign()}
                 <div className={"menu-icon " + (this.props.push ? 'menu-icon-close' : '')} onClick={ this.handleClick.bind(this) }><div className="menu-icon-middle"></div></div>

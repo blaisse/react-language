@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchFlashcard } from './../actions';
+import { fetchFlashcard, clearFlashcard } from './../actions';
 import Flashcard from './flashcard';
 import HandleSpecial from './hoc_special';
 
@@ -8,7 +8,7 @@ class FlashcardsGrid extends Component {
     constructor(props){
         super(props);
         this.state = { allCorrect: 0, correct: [] };
-        this.size = 10;
+        this.size = 2;
         
     }
     // shouldComponentUpdate(nextProps){
@@ -34,6 +34,10 @@ class FlashcardsGrid extends Component {
         let l = this.props.lang;
         if(l === null) l = 'german'; //change to german once some images for german nouns are added
         this.props.fetchFlashcard(l);
+    }
+    componentWillUnmount(){
+        console.log('bye', this.props.flashcards);
+        this.props.clearFlashcard();
     }
     componentWillUpdate(){
  
@@ -75,6 +79,7 @@ class FlashcardsGrid extends Component {
     handleCorrect(card){
         // console.log('card', card);
         let q = this.state.allCorrect;
+        // let q = 0;
         q++;
         let b = this.state.correct;
         b.push(card);
@@ -117,10 +122,16 @@ class FlashcardsGrid extends Component {
         if(l === null) l = 'german';
         this.props.fetchFlashcard(l);
     }
+    displayLoader(){
+        if(!this.props.flashcards){
+            return <div className="loader"></div>;
+        }
+    }
     render(){
         return (
             <div className={"push-container " + (this.props.push ? 'app-push' : '')}>
                 <div className="app-container app-container-front">
+                    {this.displayLoader()}
                     <p className="flashcards-p">Hover over the card to type your guess, click to check the answer.</p>
                     <div className="flashcards-grid">
                         {this.displayFlashcards()} 
@@ -141,4 +152,4 @@ function mapStateToProps(state){
     };
 }
 
-export default connect(mapStateToProps, { fetchFlashcard })(FlashcardsGrid);
+export default connect(mapStateToProps, { fetchFlashcard, clearFlashcard })(FlashcardsGrid);

@@ -9,11 +9,12 @@
         flex: 0.5;
         display: flex;
         flex-direction: column;
+        border-left: 1px solid #eaeaea;
     }
     &-left {
         flex: 0.5;
         display: flex;
-        flex-direction: column;
+        flex-direction: row;
         background: white;
         color: black;
         border-right: 1px solid #eaeaea;
@@ -28,6 +29,12 @@
             justify-content: center;
             flex-direction: column;
             text-align: center;
+        }
+        &-private {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            border-left: 1px solid #eaeaea;
         }
     }
     &-messages {

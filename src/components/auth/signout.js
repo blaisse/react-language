@@ -8,7 +8,11 @@ class SignOut extends Component {
     }
     render(){
         return (
-            <div>You have been signed out.</div>
+            <div className={"push-container " + (this.props.push ? 'app-push' : '')}>
+            <div className="app-container app-container-front">
+                You have been signed out.
+            </div>
+        </div>
         );
     }
 }

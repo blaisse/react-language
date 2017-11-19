@@ -1,0 +1,25 @@
+.sentence-block-mixed-container {
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    height: 60px;
+    background: white;
+    width: 100%;
+}
+.sentence-block-mixed {
+    display: flex;
+    /* flex-wrap: wrap; */
+    /* border: 1px solid black; */
+    color: black;  
+    padding: 15px;
+    &-hide {
+        display: none;
+    }
+}
+.sentence-block-correct {
+    background: #94ef94 !important;
+}
+.sentence-block-incorrect {
+    background: #fc2551 !important;
+}

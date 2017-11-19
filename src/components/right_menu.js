@@ -8,7 +8,9 @@ class RightMenu extends Component {
         if(this.props.authenticated){
             return [
                 <Link to="/addnoun" key="1">Add Noun</Link>,
-                <Link to="/add" key="2">Add Verb</Link> 
+                <Link to="/add" key="2">Add Verb</Link>,
+                <Link to="/createflashcard" key="3">Create Flashcard Set</Link>, 
+                <Link to="/showflashcards" key="4">Show Flashcards</Link>
             ];
         } else {
             return <div>Sign in to see content</div>;

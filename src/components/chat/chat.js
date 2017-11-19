@@ -27,7 +27,7 @@ class Chat extends Component {
             // console.log(this.divChat.className);
             // this.props.hideChat();
         } else if(!this.props.expanded && !this.state.mounted && this.props.authenticated){
-            console.log('EXPAND PLS OMG ');
+            // console.log('EXPAND PLS OMG ');
             // console.log('huh?');
             this.props.expandChat();
             // this.setState({ mounted: true });

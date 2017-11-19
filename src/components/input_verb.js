@@ -8,47 +8,17 @@ import SpecialCharacters from './special_characters';
 class InputVerb extends Component {
     constructor(props){
         super(props);
-        this.state = { answer: "", incorrect: false, correct: false };
+        this.state = { answer: "", incorrect: false, correct: false, placeholder: "" };
     }
     renderField(){
         return (
             <input placeholder="answer.." type="text" />
         );
     }
-    // handleChange(event){
-    //     event.preventDefault();
-    //     let q = event.target.value;
-    //     const val = event.target.value[event.target.value.length-1];
-    //     if(this.props.lang === 'french'){
-    //         if(val === '1'){
-    //             q = `${event.target.value.slice(0,event.target.value.length-1)}${String.fromCodePoint(233)}`;
-    //         } else if(val === '2'){
-    //             q = `${event.target.value.slice(0,event.target.value.length-1)}${String.fromCodePoint(231)}`;
-    //         } else if(val === '3'){
-    //             q = `${event.target.value.slice(0,event.target.value.length-1)}${String.fromCodePoint(234)}`;
-    //         } else if(val === '4'){
-    //             q = `${event.target.value.slice(0,event.target.value.length-1)}${String.fromCodePoint(249)}`;
-    //         }
-    //     } else if(this.props.lang === 'german' || this.props.lang === null){
-    //         if(val === '1'){
-    //             q = `${event.target.value.slice(0,event.target.value.length-1)}${String.fromCodePoint(252)}`;
-    //         } else if(val === '2'){
-    //             q = `${event.target.value.slice(0,event.target.value.length-1)}${String.fromCodePoint(246)}`;
-    //         } else if(val === '3'){
-    //             q = `${event.target.value.slice(0,event.target.value.length-1)}${String.fromCodePoint(223)}`;
-    //         } else if(val === '4'){
-    //             q = `${event.target.value.slice(0,event.target.value.length-1)}${String.fromCodePoint(228)}`;
-    //         } else if(val === '5'){
-    //            q = `${event.target.value.slice(0,event.target.value.length-1)}${String.fromCodePoint(233)}`; 
-    //         }            
-    //     }
-
-    //     this.setState({ answer: q });
-    // }
     onSubmit(event){
         event.preventDefault();
         if(this.state.answer === this.props.picked) this.setState({ answer: "", incorrect: false, correct: true }, () => {
-            console.log(' ? ?FW?F',this.state.correct);
+            // console.log(' ? ?FW?F',this.state.correct);
         });
         if(this.state.answer !== this.props.picked) this.setState({ answer: "", incorrect: true, correct: false });
         this.props.onAnswerChange(this.state.answer);
@@ -62,12 +32,26 @@ class InputVerb extends Component {
     displaySpecialCharacters(){
        
     }
+    handleKey(e){
+        if(e.keyCode === 39){
+            console.log(this.props.picked);
+            this.setState({ ...this.state, answer: "", placeholder: this.props.picked });
+        }
+    }
     render(){
         const { handleSubmit } = this.props;
         return(
             <div>
                 <form onSubmit={this.onSubmit.bind(this)}>
-                     <input ref={ input => this.verbInput = input } className={"input-verb "+(this.state.incorrect ? 'incorrect' : '')+(this.state.correct ? ' very-correct' : '')} type="text" autoFocus={true} value={this.state.answer} onChange={this.props.handleVerb.bind(this)} /> 
+                    <input
+                        ref={ input => this.verbInput = input }
+                        onKeyDown={this.handleKey.bind(this)}
+                        placeholder={this.state.placeholder}
+                        className={"input-verb "+(this.state.incorrect ? 'incorrect' : '')+(this.state.correct ? ' very-correct' : '')}
+                        type="text" autoFocus={true}
+                        value={this.state.answer}
+                        onChange={this.props.handleVerb.bind(this)}
+                    /> 
                      {/* <input ref={ input => this.verbInput = input } className={"input-verb "+(this.state.incorrect ? 'incorrect' : '')} type="text" autoFocus={true} value={this.state.answer} onChange={this.handleChange.bind(this)} />  */}
                 </form>
                 {this.displaySpecialCharacters()}

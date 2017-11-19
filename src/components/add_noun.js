@@ -66,6 +66,7 @@ class AddNoun extends Component{
                         <Field normalize={this.props.handleAddVerb.bind(this)} label="Article" name="article" component={this.renderField} />
                         <Field normalize={this.props.handleAddVerb.bind(this)} label="Noun" name="word" component={this.renderField} />
                         {this.displayError()}
+                        <Field normalize={this.props.handleAddVerb.bind(this)} label="Plural" name="plural" component={this.renderField} />
                         <Field label="Meaning" name="meaning" component={this.renderField} />
                         <Field label="Image" name="img" component={this.renderField} />
                         <button type="submit">Save</button>
@@ -80,6 +81,7 @@ function validate(values){
     const errors = {};
     if(!values.article) errors.article = "Enter an article";
     if(!values.word) errors.word = "Enter the noun";
+    if(!values.plural) errors.plural = "Enter plural";
     if(!values.meaning) errors.meaning = "Enter an English translation";
     return errors;
 }

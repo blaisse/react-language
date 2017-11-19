@@ -5,11 +5,12 @@
         flex-wrap: wrap;
         justify-content: center;
         margin-top: 20px;
-        /* width: 60%; */
+        width: 60%;
         
     }
     &-p {
         text-align: center;
+        margin-top: 20px;
     }
     &-item {
         position: relative;
@@ -29,4 +30,34 @@
         }
     }
 
+}
+
+.flashcard-create-area {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    /* margin: 20px; */
+    @mixin atMedium {
+        flex-direction: row;
+    }
+}
+
+.flashcard-edit {
+    border: 1px solid black;
+    height: 200px;
+    /* max-height: 400px; */
+    width: 300px;
+    margin: 20px;
+    text-align: center;
+    word-wrap: break-word;
+}
+.flashcard-add-button {
+    border: 1px solid #e0e0e0;
+    color: #666666;
+    background: white;
+    padding: 10px;
+    margin-bottom: 10px;
+    &:hover {
+        background: #efefef;
+    }
 }

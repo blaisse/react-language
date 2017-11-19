@@ -12,6 +12,9 @@ import FlashcardReducer from './reducer_flashcard';
 import { reducer as formReducer } from 'redux-form';
 import authReducer from './reducer_auth';
 import chatReducer from './reducer_chat';
+import pluralReducer from './reducer_plural';
+import userFlashcards from './reducer_user_flashcards';
+import sentenceBlock from './reducer_sentence_block';
 
 const rootReducer = combineReducers({
   verb: VerbsReducer,
@@ -24,8 +27,11 @@ const rootReducer = combineReducers({
   french_tenses: FrenchList,
   noun: NounReducer,
   flashcards: FlashcardReducer,
+  userFlashcards: userFlashcards,
   auth: authReducer,
-  chat: chatReducer
+  chat: chatReducer,
+  plural: pluralReducer,
+  sentenceBlock
 });
 
 export default rootReducer;

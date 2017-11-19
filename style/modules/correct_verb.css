@@ -15,22 +15,33 @@
 .verb-inner-meaning {
     font-size: 1.1em;
     /* margin-left: 100px; */
-    color: #ff9e9e;
+    color: black;
     width: 100%;
     text-align: center;
+    padding-bottom: 13px;
+    /* border-bottom: 1px solid black; */
+    span {
+        margin-left: 20px;
+    }
 }
 .input-field {
-    padding: 20px;
+    /* padding: 20px; */
+    padding-top: 20px;
+    padding-bottom: 20px;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     flex-wrap: wrap;
 }
 .input-verb {
-    padding: 10px;
+    text-align: center;
+    /* padding: 10px; */
+    padding-top: 10px;
+    padding-bottom: 10px;
     font-size: 1.0em;
-    margin-left: 20px;
-    margin-top: 10px;
+    width: 100%;
+    /* margin-left: 20px; */
+    /* margin-top: 10px; */
     outline: none;
 }
 @media (max-width: 600px){
@@ -51,10 +62,16 @@
     margin-top: 20px;
 }
 .incorrect {
-    border: 1px solid red;
+    /* border: 1px solid red; */
+    border: none;
+    margin: 2px;
+    box-shadow: 0 0 1px 1px red;
 }
 .very-correct {
-    border: 1px solid #94ef94; 
+    border: none;
+    margin: 2px;
+    box-shadow: 0 0 1px 1px #94ef94;
+    /* border: 1px solid #94ef94;  */
     /* background: #94ef94; */
 }
 .verb-hint {
