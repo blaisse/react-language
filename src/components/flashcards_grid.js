@@ -8,7 +8,7 @@ class FlashcardsGrid extends Component {
     constructor(props){
         super(props);
         this.state = { allCorrect: 0, correct: [] };
-        this.size = 2;
+        this.size = 4;
         
     }
     // shouldComponentUpdate(nextProps){
