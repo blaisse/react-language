@@ -40,7 +40,7 @@ function handleKey(event){
   if(event.keyCode === 27){
      let x = document.querySelector('.menu-icon');
      if(!x){
-       console.log('WTF! NO x! WTF?');
+      //  console.log('WTF! NO x! WTF?');
      }
      x.click();
   }
@@ -59,7 +59,7 @@ function focusDiv(){
   d.focus();
 }
 function handleClick(){
-  console.log('heil');
+  // console.log('heil');
 }
 
 const store = createStoreWithMiddleware(reducers);

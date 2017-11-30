@@ -10,7 +10,7 @@ class Chat extends Component {
     constructor(props){
         super(props);
         // this.socket = io('http://localhost:3007');
-        this.socket = io('https://safe-badlands-67690.herokuapp.com');
+        this.socket = io('https://safe-badlands-67690.herokuapp.com'); 
         this.channel = 'general';
     }
     componentWillUnmount(){
