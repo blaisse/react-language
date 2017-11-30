@@ -38,7 +38,7 @@ class Plural extends Component {
                         </div>
                         <Composed handleCorrect={this.handleCorrect.bind(this)} correct={this.props.plural.plural} />
                         {/* <div>{noun.plural}</div> */}
-                        <div className="hint-pluarl">Press the right keyboard arrow to see the answer.</div>
+                        <div className="hint-pluarl">Press the right keyboard arrow to see the answer</div>
                     </div>
                 </div>
             );
