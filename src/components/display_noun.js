@@ -83,7 +83,7 @@ class DisplayNoun extends Component {
                     <div className="noun-meaning">{this.props.noun.meaning}</div>
                     <Compund sendInput={this.handleNoun.bind(this)} correct={this.state.correct} clearClass={this.clearClass.bind(this)} />
                     {/* <InputNoun sendInput={this.handleNoun.bind(this)} /> */}
-                </div>
+                </div> 
             );
         }
     }
