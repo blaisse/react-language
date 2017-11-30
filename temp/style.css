@@ -1089,6 +1089,9 @@
         -ms-flex-direction: column;
             flex-direction: column;
 }
+.hint-plural {
+    margin-top: 20px;
+}
 .sentence-block-mixed-container {
     -webkit-box-pack: center;
         -ms-flex-pack: center;
