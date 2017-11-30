@@ -21,6 +21,7 @@ class RightMenu extends Component {
         return (
             <div className={"right-menu " + (this.props.open ? 'right-menu-open' : '') }>
                 <div className="right-menu-links">
+                    <p>Use ESC to open/close menu</p>
                      {this.renderLinks()}    
                 </div>
                    {/* <img src="https://i.giphy.com/media/ntmBgj2X9FLGM/giphy.webp" alt=""/>   */}
