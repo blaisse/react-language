@@ -10,8 +10,8 @@ class ChatApp extends Component {
     constructor(props){
         super(props);//{ 'German': [], 'French': [] }
         this.state = { room: 'German', users: [], messages: [], sign: false };
-        this.socket = io('http://localhost:3007'); 
-        // this.socket = io('https://safe-badlands-67690.herokuapp.com');
+        // this.socket = io('http://localhost:3007'); 
+        this.socket = io('https://safe-badlands-67690.herokuapp.com');
     }
     // shouldComponentUpdate(nextProps){
     //     // return this.props.expanded !== nextProps.expanded;
