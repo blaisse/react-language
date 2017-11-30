@@ -1090,7 +1090,7 @@
             flex-direction: column;
 }
 .hint-plural {
-    margin-top: 20px;
+    margin-top: 25px; 
 }
 .sentence-block-mixed-container {
     -webkit-box-pack: center;
