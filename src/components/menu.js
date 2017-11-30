@@ -14,7 +14,7 @@ class Menu extends Component {
     constructor(props){
         super(props);
         this.state = { open: false };
-        this.socket = io('http://localhost:3007');
+        // this.socket = io('http://localhost:3007');
         this.notification = "";
         this.id;
     }
