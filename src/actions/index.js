@@ -494,8 +494,8 @@ export function clearFlashcardSet(){
     };
 }
 
-export function fetchPlural(lang){
-    const request = axios.get(`${ROOT_URL}/plural/${lang}`);
+export function fetchPlural(lang, user){
+    const request = axios.get(`${ROOT_URL}/plural/${lang}/${user}`);
     return {
         type: FETCH_PLURAL,
         payload: request

@@ -14,7 +14,7 @@ class Plural extends Component {
         } else {
             l = this.props.lang;
         }
-        this.props.fetchPlural(l);
+        this.props.fetchPlural(l, localStorage.getItem('username'));
     }
     componentWillUnmount(){
         console.log('bye plural');
@@ -45,8 +45,8 @@ class Plural extends Component {
     }
     handleCorrect(value){
         setTimeout(() => {
-            this.props.fetchPlural((this.props.lang || 'german'));
-        }, 400);
+            this.props.fetchPlural((this.props.lang || 'german'), localStorage.getItem('username'));
+        }, 600);
     }
     render(){
         // console.log(this.props.plural);
