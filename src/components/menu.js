@@ -125,7 +125,12 @@ class Menu extends Component {
         return (
             <div className="menu-container">
                 {/* <Link to="/">Home</Link> */}
-                <div className="menu-container-logo"><span><strong>French & German</strong></span></div>
+                <div className="menu-container-logo">
+                    <span className="menu-container-logo-span">
+                         <strong>
+                             <span className={(this.props.lang==='french' ? "lang-french-logo" : "")}>French</span> & <span className={(this.props.lang==='german' ? "lang-german-logo" : "")}>German</span></strong>
+                    </span>
+                </div>
                 <div className="menu-container-links">
                 <Link exact to="/">Change language</Link>
                 <Link to="/tenses">Tenses</Link>
@@ -153,6 +158,7 @@ function mapStateToProps(state){
      times: state.times,
      push: state.pushContent,
      authenticated: state.auth.authenticated,
+     lang: state.lang,
     //  url: state.url,
     //  privateMessages: state.privateMessages,
      fullChat: state.fullChat

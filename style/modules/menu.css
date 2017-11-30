@@ -101,7 +101,7 @@
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    span {
+    &-span {
         font-size: 1.2em;
         width: 100%;
         display: flex;
@@ -111,6 +111,11 @@
             /* font-family: 'Didact Gothic', sans-serif; */
             font-family: 'Spectral SC', serif;
             font-weight: 200;
+            /* color: blue; */
+            span {
+                font-family: 'Spectral SC', serif;
+                font-weight: 200;
+            }
         }
     }
     @mixin atMedium {
@@ -162,4 +167,11 @@
     .menu-bar-icon {
         right: 3px;
     }
+}
+
+.lang-french-logo {
+    color: rgb(34, 156, 194);
+}
+.lang-german-logo {
+    color: rgb(238, 110, 110);
 }

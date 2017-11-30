@@ -416,7 +416,7 @@
         -ms-flex-align: center;
             align-items: center;
 }
-.menu-container-logo span {
+.menu-container-logo-span {
         font-size: 1.2em;
         width: 100%;
         display: -webkit-box;
@@ -429,11 +429,16 @@
             -ms-flex-align: center;
                 align-items: center;
     }
-.menu-container-logo span strong {
+.menu-container-logo-span strong {
             /* font-family: 'Didact Gothic', sans-serif; */
             font-family: 'Spectral SC', serif;
             font-weight: 200;
         }
+/* color: blue; */
+.menu-container-logo-span strong span {
+                font-family: 'Spectral SC', serif;
+                font-weight: 200;
+            }
 @media (min-width: 800px){
 .menu-container-logo {
         margin-left: 40px
@@ -516,6 +521,12 @@
     .menu-bar-icon {
         right: 3px;
     }
+}
+.lang-french-logo {
+    color: rgb(34, 156, 194);
+}
+.lang-german-logo {
+    color: rgb(238, 110, 110);
 }
 .right-menu {
     /* color: #474747; */
