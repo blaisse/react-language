@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import SpecialCharacters from './special_characters';
+import { setLastCorrect } from './../actions';
 
 class PluralInput extends Component {
     constructor(props){
@@ -25,7 +26,9 @@ class PluralInput extends Component {
         // } else {
         //     full = `die ${this.props.correct}`;
         // }
-        
+        if(this.props.auth){
+            this.props.setLastCorrect('plural', this.props.correct);            
+        }
         if(this.state.value.trim() === this.full){
             this.setState({ value: "", correct: true }, () => {
                 this.props.handleCorrect();
@@ -79,8 +82,9 @@ class PluralInput extends Component {
 function mapStateToProps(state){
     return {
         plural: state.plural,
-        lang: state.lang
+        lang: state.lang,
+        auth: state.auth.authenticated
     };
 }
 
-export default connect(mapStateToProps)(PluralInput);
+export default connect(mapStateToProps, { setLastCorrect })(PluralInput);
