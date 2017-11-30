@@ -35,18 +35,25 @@ class CorrectVerb extends Component {
         // return this.props.open === nextProps.open; 
     }
     componentWillMount(){
+        console.log('p2322', this.props.lang, this.props.time);
         if(!this.props.lang){
         } else {
             this.defaultLang = this.props.lang;
         }
+        // console.log(this.defaultLang);
         if(!this.props.time){
-            this.props.fetchVerb(this.props.times, this.defaultLang, localStorage.getItem('username'));
+            if(this.defaultLang === 'french'){
+                this.props.fetchVerb(this.props.french_tenses, this.defaultLang, localStorage.getItem('username'));
+            } else {
+                this.props.fetchVerb(this.props.times, this.defaultLang, localStorage.getItem('username'));
+            }
+            
         } else {
             this.props.fetchVerb(this.props.time, this.defaultLang, localStorage.getItem('username'));
         }
     }
     componentDidMount(){  
-        
+        console.log('qqqqq', this.props.verb);
     }
     componentWillUnmount(){
         this.props.resetVerb();
@@ -61,11 +68,20 @@ class CorrectVerb extends Component {
             var rollTense;
             var obj;
             if(!this.props.time){
-                rollTense = Math.floor(Math.random() * this.props.times.length);
-                obj = this.props.verb.conj.filter((item) => {
-                    return item.time === this.props.times[rollTense].time;
-                });
-                if(obj.length===0)console.log('!props.time - 00');
+                if(this.defaultLang === 'french'){
+                    rollTense = Math.floor(Math.random() * this.props.french_tenses.length);
+                    obj = this.props.verb.conj.filter((item) => {
+                        return item.time === this.props.french_tenses[rollTense].time;
+                    });
+                    if(obj.length===0)console.log('!props.time - 00');
+                } else {
+                    rollTense = Math.floor(Math.random() * this.props.times.length);
+                    obj = this.props.verb.conj.filter((item) => {
+                        return item.time === this.props.times[rollTense].time;
+                    });
+                    if(obj.length===0)console.log('!props.time - 00');
+                }
+              
             } else {
                 //if(this.anyTense.length === 1){
                     //SET global props.time to all times possible
@@ -138,7 +154,12 @@ class CorrectVerb extends Component {
                 }
                 setTimeout(() => {
                     if(!this.props.time){
-                        this.props.fetchVerb(this.props.times, this.defaultLang, localStorage.getItem('username'));
+                        if(this.defaultLang === 'french'){
+                            this.props.fetchVerb(this.props.french_tenses, this.defaultLang, localStorage.getItem('username'));
+                        } else {
+                            this.props.fetchVerb(this.props.times, this.defaultLang, localStorage.getItem('username'));
+                        }
+                        
                     } else {
                         this.props.fetchVerb(this.props.time, this.defaultLang, localStorage.getItem('username'));
                     }
@@ -159,7 +180,11 @@ class CorrectVerb extends Component {
     }
     handleRefresh(){
         if(!this.props.time){
-            this.props.fetchVerb(this.props.times, this.defaultLang, localStorage.getItem('username'));
+            if(this.defaultLang === 'french'){
+                this.props.fetchVerb(this.props.french_tenses, this.defaultLang, localStorage.getItem('username'));                
+            } else {
+                this.props.fetchVerb(this.props.times, this.defaultLang, localStorage.getItem('username'));                
+            }
         } else {
             this.props.fetchVerb(this.props.time, this.defaultLang, localStorage.getItem('username'));
         }
