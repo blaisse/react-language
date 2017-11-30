@@ -66,9 +66,12 @@ const store = createStoreWithMiddleware(reducers);
 // const lol = store.getState();
 // console.log('LOLOLOLO', lol);
 const token = localStorage.getItem('token');
+const l = localStorage.getItem('lang');
 if(token){
   store.dispatch({ type: SIGNIN_USER });
   store.dispatch({ type: SELECTED_LANGUAGE, payload: localStorage.getItem('lang') });
+} else if(l){
+  store.dispatch({ type: SELECTED_LANGUAGE, payload: localStorage.getItem('lang') });  
 } else {
   //no account
   localStorage.setItem('lang', 'french');

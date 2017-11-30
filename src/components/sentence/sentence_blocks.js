@@ -9,6 +9,7 @@ class SentenceBlocks extends Component {
         this.state = { answer: [], correct: false, incorrect: false, words: {} };
     }
     componentWillMount(){
+        console.log(this.props.lang);
         this.props.fetchSentenceBlock(this.props.lang, "1", localStorage.getItem('username'));
     }
     componentWillUnmount(){
