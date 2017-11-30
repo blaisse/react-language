@@ -14,7 +14,7 @@ class RightMenu extends Component {
                 <Link to="/showflashcards" key="5">Show Flashcards</Link>
             ];
         } else {
-            return <div>Sign in to see content</div>;
+            return <div>Sign in to see the content</div>;
         }
     }
     render(){
