@@ -129,7 +129,7 @@ class FlashcardsGrid extends Component {
     }
     render(){
         return (
-            <div className={"push-container " + (this.props.push ? 'app-push' : '')}>
+            <div className={"push-container move-in " + (this.props.push ? 'app-push' : '')}>
                 <div className="app-container app-container-front">
                     {this.displayLoader()}
                     <p className="flashcards-p">Hover over the card to type your guess, click to check the answer.</p>

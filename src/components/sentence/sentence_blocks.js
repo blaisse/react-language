@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchSentenceBlock, clearSentenceBlock } from './../../actions';
+import { fetchSentenceBlock, clearSentenceBlock, setLastCorrect } from './../../actions';
 import SentenceBlockAnswer from './sentence_blocks_answer';
 
 class SentenceBlocks extends Component {
@@ -9,13 +9,14 @@ class SentenceBlocks extends Component {
         this.state = { answer: [], correct: false, incorrect: false, words: {} };
     }
     componentWillMount(){
-        this.props.fetchSentenceBlock(this.props.lang, "1");
+        this.props.fetchSentenceBlock(this.props.lang, "1", localStorage.getItem('username'));
     }
     componentWillUnmount(){
         // console.log('me is bye');
         this.props.clearSentenceBlock();
     }
     handleBlockClick(event, word, index){
+        console.log('--', this.props.sentenceBlock);
         if(this.state.answer.length <= this.props.sentenceBlock.slicedFully.length){
             // this[index].className = "sentence-block-mixed sentence-block-mixed-hide";
             let n = this.state.answer;
@@ -28,7 +29,7 @@ class SentenceBlocks extends Component {
                 if(this.state.words[index]){
                     this[index].className = "sentence-block-mixed sentence-block-mixed-hide";
                 }
-
+            
                 if(this.state.answer.length === this.props.sentenceBlock.slicedFully.length){
                     let answer = "";
                     this.state.answer.forEach((item) => {
@@ -41,6 +42,9 @@ class SentenceBlocks extends Component {
                     // console.log('answer string', answer);
                     // console.log('proper string', proper);
                     if(answer === proper){
+                        if(this.props.auth){
+                            this.props.setLastCorrect('sentence', this.props.sentenceBlock.translation);
+                        }
                         this.setState({ ...this.state, correct: true }, () => {
                             setTimeout(() => {
                                 const keys = Object.keys(this.state.words);
@@ -50,9 +54,9 @@ class SentenceBlocks extends Component {
                                 //idk if it always works but seems great right now
                                 this.props.clearSentenceBlock();
                                 this.setState({ answer: [], correct: false, words: {} }, () => {
-                                    this.props.fetchSentenceBlock(this.props.lang, "1");
+                                    this.props.fetchSentenceBlock(this.props.lang, "1", localStorage.getItem('username'));
                                 });
-                            }, 2000);
+                            }, 1000);
                         });
                     } else {
                         //incorrect - clear out but dont fetch a new one
@@ -63,7 +67,7 @@ class SentenceBlocks extends Component {
                                     this[key].className = "sentence-block-mixed";
                                 });
                                 this.setState({ answer: [], correct: false, incorrect: false, words: {} });
-                            }, 2000);
+                            }, 1000);
                         });   
                     }
                 }
@@ -90,9 +94,10 @@ class SentenceBlocks extends Component {
     render(){
         // console.log('pls work', this.props.sentenceBlock);        
         return (
-            <div className={"app-container app-container-front push-container "
+            <div className={"app-container app-container-front push-container move-in "
                 + (this.props.push ? 'app-push' : '')  
             }>
+                <div className="sentence-block-translation">{this.props.sentenceBlock.translation}</div>
                 <SentenceBlockAnswer currentAnswer={this.state.answer} correct={this.state.correct} incorrect={this.state.incorrect} />
                 <div className={"sentence-block-mixed-container"}>{this.displayBlocks()}</div>
             </div>
@@ -104,8 +109,9 @@ function mapStateToProps(state){
     return {
         push: state.pushContent,
         lang: state.lang,
-        sentenceBlock: state.sentenceBlock
+        sentenceBlock: state.sentenceBlock,
+        auth: state.auth.authenticated
     };
 }
 
-export default connect(mapStateToProps, { fetchSentenceBlock, clearSentenceBlock })(SentenceBlocks);
+export default connect(mapStateToProps, { fetchSentenceBlock, clearSentenceBlock, setLastCorrect })(SentenceBlocks);

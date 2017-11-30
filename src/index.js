@@ -14,6 +14,7 @@ import VerbContainer from './components/verb_container';
 import DisplayLanguages from './components/display_languages';
 import AddVerb from './components/add_verb';
 import AddNoun from './components/add_noun';
+import AddSentence from './components/add_sentence';
 import FlashcardsGrid from './components/flashcards_grid';
 import Menu from './components/menu';
 import Main from './components/main';
@@ -27,6 +28,8 @@ import FlashcardShow from './components/flashcard_show';
 import FlashcardShowOne from './components/flashcard_show_one';
 import SentenceBlocks from './components/sentence/sentence_blocks';
 
+import ChatFull from './components/fullchat/chat';
+
 import HandleSpecial from './components/hoc_special';
 import RequireAuth from './components/auth/require_auth';
 import { SIGNIN_USER, SELECTED_LANGUAGE } from './actions';
@@ -36,6 +39,9 @@ const createStoreWithMiddleware = applyMiddleware(promise, reduxThunk)(createSto
 function handleKey(event){
   if(event.keyCode === 27){
      let x = document.querySelector('.menu-icon');
+     if(!x){
+       console.log('WTF! NO x! WTF?');
+     }
      x.click();
   }
   if(event.keyCode === 112){
@@ -57,6 +63,8 @@ function handleClick(){
 }
 
 const store = createStoreWithMiddleware(reducers);
+// const lol = store.getState();
+// console.log('LOLOLOLO', lol);
 const token = localStorage.getItem('token');
 if(token){
   store.dispatch({ type: SIGNIN_USER });
@@ -88,6 +96,9 @@ ReactDOM.render(
           <Route exact path="/showflashcards" component={RequireAuth(FlashcardShow)} />
           <Route exact path="/showflashcard/:id" component={FlashcardShowOne} />
           <Route exact path="/blocks" component={SentenceBlocks} />
+          <Route exact path="/chat" component={ChatFull} />
+          <Route exact path="/addsentence" component={HandleSpecial(RequireAuth(AddSentence))} />
+
         </Switch>
         <Chat />
       </div>

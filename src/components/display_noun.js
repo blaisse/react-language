@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchNoun, resetNoun } from './../actions';
+import { fetchNoun, resetNoun, setLastCorrect, userFetchNoun } from './../actions';
 import InputNoun from './input_noun';
 import HandleSpecial from './hoc_special';
 
@@ -15,7 +15,13 @@ class DisplayNoun extends Component {
         if(this.props.lang){
             this.default_language = this.props.lang;
         }
-        this.props.fetchNoun(this.default_language);
+        if(this.props.auth){
+            console.log('noun auth. goo');
+            this.props.userFetchNoun(this.default_language);
+        } else {
+            this.props.fetchNoun(this.default_language);
+        }
+        
     }
     componentWillUnmount(){
         // console.log('unmounting..');
@@ -23,7 +29,11 @@ class DisplayNoun extends Component {
         // console.log(this.props.noun);
     }
     handleNoun(article, word, inpt){
+        // console.log('wtf?', ar);
         if(word === this.props.noun.word && article === this.props.noun.article){
+            if(this.props.auth){
+                this.props.setLastCorrect('noun', word);
+            }
             this.setState({ correct: "1" }, () => {
                 
             });
@@ -33,7 +43,13 @@ class DisplayNoun extends Component {
                 //     await 
                     
                 // }
-                this.props.fetchNoun(this.default_language);
+                if(this.props.auth){
+                    this.props.userFetchNoun(this.default_language);
+                } else {
+                    this.props.fetchNoun(this.default_language);
+                }
+                
+                
                 this.setState({ correct: "3" });
                 
             }, 400);
@@ -83,8 +99,9 @@ class DisplayNoun extends Component {
 function mapStateToProps(state){
     return {
         lang: state.lang,
-        noun: state.noun
+        noun: state.noun,
+        auth: state.auth.authenticated
     };
 }
 
-export default connect(mapStateToProps, { fetchNoun, resetNoun })(DisplayNoun);
+export default connect(mapStateToProps, { fetchNoun, resetNoun, setLastCorrect, userFetchNoun })(DisplayNoun);

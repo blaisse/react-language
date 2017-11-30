@@ -30,7 +30,7 @@ class InputNoun extends Component {
     }
     onSubmit(event){
         event.preventDefault();
-        this.props.sendInput(this.state.article, this.state.value, this.nameInput);
+        this.props.sendInput(this.state.article.trim(), this.state.value.trim(), this.nameInput);
         this.nameInput.focus();
         this.setState({ value: "", article: "" });
         // this.forceUpdate();
@@ -40,7 +40,7 @@ class InputNoun extends Component {
     }
     render(){
         if(this.props.correct === "2"){
-            console.log('HALP');
+            // console.log('HALP');
 
         }
         // const { handleSubmit } = this.props;

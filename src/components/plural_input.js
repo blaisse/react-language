@@ -26,12 +26,15 @@ class PluralInput extends Component {
         //     full = `die ${this.props.correct}`;
         // }
         
-        if(this.state.value === this.full){
+        if(this.state.value.trim() === this.full){
             this.setState({ value: "", correct: true }, () => {
                 this.props.handleCorrect();
             });
         } else {
             this.setState({ ...this.state, incorrect: true, value: "" });
+            setTimeout(() => {
+                this.setState({ incorrect: false });
+            }, 300);
         }
     }
     handleCharacterClick(id){

@@ -9,7 +9,7 @@ class SentenceBlockAnswer extends Component {
         if(this.props.currentAnswer.length > 0){
             return this.props.currentAnswer.map((word, index) => {
                 return (
-                    <div className="sentence-block-mixed" key={index}>{word}</div>
+                    <div className="sentence-block-mixed less-padding" key={index}>{word}</div>
                 );
             });
         }

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchVerb, selectTime, resetVerb } from './../actions';
+import { fetchVerb, selectTime, resetVerb, setLastCorrect } from './../actions';
 import InputVerb from './input_verb';
 import DisplayAnswer from './display_answer';
 import _ from 'lodash';
@@ -40,9 +40,9 @@ class CorrectVerb extends Component {
             this.defaultLang = this.props.lang;
         }
         if(!this.props.time){
-            this.props.fetchVerb(this.props.times, this.defaultLang);
+            this.props.fetchVerb(this.props.times, this.defaultLang, localStorage.getItem('username'));
         } else {
-            this.props.fetchVerb(this.props.time, this.defaultLang);
+            this.props.fetchVerb(this.props.time, this.defaultLang, localStorage.getItem('username'));
         }
     }
     componentDidMount(){  
@@ -53,7 +53,7 @@ class CorrectVerb extends Component {
     }
     pickRandomPerson(){
         let p = ['ich', 'du', 'er_sie_es', 'wir', 'ihr', 'sie_Sie'];
-        console.log(this.props.verb);
+        // console.log('???',this.props.verb);
         var picked = p[Math.floor(Math.random()*6)];
         if(this.props.verb.conj){
             //DONE: first it gets a verb then checks whether is has this tense
@@ -124,15 +124,25 @@ class CorrectVerb extends Component {
         );
     }
     checkAnswer(){
+        // console.log('qweqweqw', this.answer, this.picked);
        if(this.answer && this.picked) {
            if(this.answer === this.picked){
-               this.answer = null;
-            //    console.log('so correct:LLLL', document.querySelector('.verb-container').className);
-                if(!this.props.time){
-                    this.props.fetchVerb(this.props.times, this.defaultLang);
-                } else {
-                    this.props.fetchVerb(this.props.time, this.defaultLang);
+                this.answer = null;
+    
+                //this might not be working on a real server 100ms delay
+
+                if(this.props.auth){
+                    setTimeout(() => {
+                        this.props.setLastCorrect('verb', this.props.verb.word);
+                    }, 200);
                 }
+                setTimeout(() => {
+                    if(!this.props.time){
+                        this.props.fetchVerb(this.props.times, this.defaultLang, localStorage.getItem('username'));
+                    } else {
+                        this.props.fetchVerb(this.props.time, this.defaultLang, localStorage.getItem('username'));
+                    }
+                }, 400);
            }
        } 
     }
@@ -149,9 +159,9 @@ class CorrectVerb extends Component {
     }
     handleRefresh(){
         if(!this.props.time){
-            this.props.fetchVerb(this.props.times, this.defaultLang);
+            this.props.fetchVerb(this.props.times, this.defaultLang, localStorage.getItem('username'));
         } else {
-            this.props.fetchVerb(this.props.time, this.defaultLang);
+            this.props.fetchVerb(this.props.time, this.defaultLang, localStorage.getItem('username'));
         }
     }
  
@@ -189,9 +199,10 @@ function mapStateToProps(state){
      times: state.times,//german
      french_tenses: state.french_tenses,
      lang: state.lang,
-     expanded: state.chat.expanded
+     expanded: state.chat.expanded,
+     auth: state.auth.authenticated
     //  push: state.pushContent
     };
 }
 
-export default connect(mapStateToProps, { fetchVerb, selectTime, resetVerb })(CorrectVerb);
+export default connect(mapStateToProps, { fetchVerb, selectTime, resetVerb, setLastCorrect })(CorrectVerb);

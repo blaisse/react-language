@@ -2,6 +2,7 @@
 @import url('https://fonts.googleapis.com/css?family=Zilla+Slab');
 @import url('https://fonts.googleapis.com/css?family=Lora');
 @import url('https://fonts.googleapis.com/css?family=Raleway');
+@import url('https://fonts.googleapis.com/css?family=Barlow+Condensed');
 
 @import 'base/mixins';
 @import 'modules/flashcards';
@@ -15,8 +16,18 @@
 @import 'modules/chat'; 
 @import 'modules/plural'; 
 @import 'modules/sentence_block'; 
+@import 'modules/chat_full';  
 
  
+@keyframes moveIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
 * {
     margin: 0; 
     padding: 0;
@@ -79,6 +90,7 @@ body {
     right: 0;
     bottom: 0;
     color: white;
+    text-decoration: none;
     @mixin atMedium {
         margin-right: 10px; 
         margin-bottom: 10px;
@@ -176,6 +188,10 @@ body {
 
 .noun-content {
     padding-top: 30px;
+    animation: moveIn 1s ease-out;
+}
+.noun-form {
+    display: flex;
 }
 .noun-form input {
     padding: 5px;
@@ -192,7 +208,13 @@ body {
     max-width: 100px;
 }
 .hide-button {
-    display: none;
+    /* display: none; */
+    border: 1px solid #eaeaea;
+    background: #fff;
+    padding: 7px;
+    margin-left: 10px;
+    font-size: 0.8em;
+    color: #c7c7c7;
 }
 
 
@@ -203,27 +225,34 @@ body {
     transform: translateX(-100px);
 }
 .stretch {
-    background: pink;
+    /* background: pink; */
     /* height: 100%; */
+}
+.move-in {
+    animation: moveIn 1s ease-out;
 }
 .app-container {
     /* background: pink; */
     /* height: 100%; */
-    background: #fcfcfc;
+    /* background: #fcfcfc; */
     /* padding-bottom: 70px; */
+   
    font-size: 1.1em;
    display: flex;
    flex-direction: column;
     align-items: center;   
     /* justify-content: center;     */
    transition: transform 0.9s;
+
    &-front {
        h2 {
            font-size: 1.1em;
            margin-bottom: 10px;
            /* font-family: 'Raleway', sans-serif; */
+           /* font-family: 'Barlow Condensed', sans-serif; */
+            font-weight: 300;
            @mixin atMedium {
-               margin-top: 40px;
+               margin-top: 30px;
            }
        }
        /* background: tomato; */
@@ -235,7 +264,8 @@ body {
 }
 
 .app-container h4 {
-    font-size: 1.3em;
+    font-size: 1.1em;
+    font-weight: 300;
     text-align: center;
     @mixin atMedium {
         margin-top: 40px;

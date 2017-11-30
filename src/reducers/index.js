@@ -15,6 +15,11 @@ import chatReducer from './reducer_chat';
 import pluralReducer from './reducer_plural';
 import userFlashcards from './reducer_user_flashcards';
 import sentenceBlock from './reducer_sentence_block';
+import UrlReducer from './reducer_url';
+import PrivateMessagesReducer from './reducer_private_messages';
+import UserListReducer from './reducer_user_list';
+import FullCharReducer from './reducer_full_chat';
+import GlobalMessagesReducer from './reducer_global_messages';
 
 const rootReducer = combineReducers({
   verb: VerbsReducer,
@@ -31,7 +36,12 @@ const rootReducer = combineReducers({
   auth: authReducer,
   chat: chatReducer,
   plural: pluralReducer,
-  sentenceBlock
+  sentenceBlock,
+  url: UrlReducer,
+  privateMessages: PrivateMessagesReducer,
+  userList: UserListReducer,
+  fullChat: FullCharReducer,
+  global_messages: GlobalMessagesReducer
 });
 
 export default rootReducer;

@@ -17,11 +17,13 @@ class InputVerb extends Component {
     }
     onSubmit(event){
         event.preventDefault();
-        if(this.state.answer === this.props.picked) this.setState({ answer: "", incorrect: false, correct: true }, () => {
-            // console.log(' ? ?FW?F',this.state.correct);
-        });
-        if(this.state.answer !== this.props.picked) this.setState({ answer: "", incorrect: true, correct: false });
-        this.props.onAnswerChange(this.state.answer);
+        const answer = this.state.answer.trim();
+        if(answer === this.props.picked) this.setState({ answer: "", incorrect: false, correct: true });
+        if(answer !== this.props.picked) this.setState({ answer: "", incorrect: true, correct: false });
+        this.props.onAnswerChange(answer);  
+        // setTimeout(() => {
+                      
+        // }, 2000);
     }
     handleCharacterClick(id){
         let q = document.querySelector(id).textContent;

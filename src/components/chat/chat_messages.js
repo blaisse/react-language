@@ -24,11 +24,12 @@ class ChatMessages extends Component {
      
     }
     renderMessages(){
+        const u = localStorage.getItem('username');
         // console.log('scrollHeight',this.divMessages.scrollHeight);
         return this.props.messages.map((item, i) => {
             return (
                 <div className="chat-container-messages-single" key={i}>
-                    <span className="chat-container-messages-single-user">{item.user}:</span>
+                    <span className={"chat-container-messages-single-user " + (item.user !== u ? "other-user" : "")}>{item.user}:</span>
                     <span className="chat-single-message-span">{item.text}</span>
                 </div>
             );

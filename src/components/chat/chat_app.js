@@ -10,8 +10,8 @@ class ChatApp extends Component {
     constructor(props){
         super(props);//{ 'German': [], 'French': [] }
         this.state = { room: 'German', users: [], messages: [], sign: false };
-        // this.socket = io('http://localhost:3007'); 
-        this.socket = io('https://safe-badlands-67690.herokuapp.com');
+        this.socket = io('http://localhost:3007'); 
+        // this.socket = io('https://safe-badlands-67690.herokuapp.com');
     }
     // shouldComponentUpdate(nextProps){
     //     // return this.props.expanded !== nextProps.expanded;
@@ -36,13 +36,13 @@ class ChatApp extends Component {
                     }
                 });
             });
-            this.socket.on('updateUsers', function(users){
+            this.socket.on('updateUsersSmall', function(users){
                 console.log('update users!', users);
                 // const u = app.state.users;
                 // u.push(users);
                 app.setState({ ...app.state, users });
             });
-            this.socket.on('newMessage', function(message){
+            this.socket.on('newMessageSmall', function(message){
                 // console.log('message from server', message);
                 const x = app.state.messages;
                  x.push(message);
@@ -96,13 +96,13 @@ class ChatApp extends Component {
             }
         });
         // this.setState({ ...this.state, room: 'German', messages: [] });
-        this.socket.on('updateUsers', function(users){
+        this.socket.on('updateUsersSmall', function(users){
             // console.log('update users!', users);
             // const u = app.state.users;
             // u.push(users);
             app.setState({ ...app.state, users });
         });
-        this.socket.on('newMessage', function(message){
+        this.socket.on('newMessageSmall', function(message){
             // console.log('message from server', message);
             const x = app.state.messages;
             x.push(message);
@@ -172,7 +172,7 @@ class ChatApp extends Component {
             from: localStorage.getItem('username'),
             to: user
         }
-        app.socket.emit('privateMessage', params, (err) => {
+        app.socket.emit('privateMessageSmall', params, (err) => {
             if(err) console.log('err', err);
         });
         this.setState({ ...this.state, private: true }, () => {

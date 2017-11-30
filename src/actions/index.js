@@ -22,6 +22,21 @@ export const FETCH_SINGLE_USER_FLASHCARD = 'fetch_single_user_flashcard';
 export const FETCH_SENTENCE_BLOCK = 'fetch_sentence_block';
 export const CLEAR_SENTENCE_BLOCK = 'clear_sentence_block';
 
+export const CLEAR_UNREAD_FULL_CHAT = 'clear_unread_full_chat';
+export const SET_UNREAD_FULL_CHAT = 'set_unread_full_chat';
+export const OLD_NOTIFY_PM_FULL_CHAT = 'old_notify_pm_full_chat';
+export const NOTIFY_CLEAR_FULL_CHAT = 'notify_clear_full_chat';
+export const NOTIFY_PM_FULL_CHAT = 'notify_pm_full_chat';
+export const PRIVATE_CHANNEL_FULL_CHAT = 'private_chaneel_full_chat';
+export const CHAT_WITH_FULL_CHAT = 'chat_with_full_chat';
+export const OPEN_FULL_CHAT = 'open_full_chat';
+export const SET_FULL_CHAT = 'set_full_chat';
+export const SET_URL = 'set_url';
+export const SET_PRIVATE_MESSAGES = 'set_private_messages';
+export const SET_USER_LIST = 'set_user_list';
+
+export const SET_GLOBAL_MESSAGES = 'set_global_messages';
+
 export const SIGNIN_USER = 'signin_user';
 export const SIGNUP_USER = 'signup_user';
 export const SIGNOUT_USER = 'signout_user';
@@ -45,12 +60,201 @@ export function expandChat(){
     };
 }
 
+export function userFetchNoun(lang){
+    const request = axios.get(`${ROOT_URL}/userfetchnoun/${lang}/${localStorage.getItem("username")}`);
+
+    return {
+        type: FETCH_NOUN,
+        payload: request
+    };
+}
+
+export function setLastCorrect(type, correct){
+    if(correct[correct.length-1] === "?"){
+        correct = correct.slice(0, correct.length-1);
+        correct += "%3F";
+        // console.log(correct);
+    }
+    const request = axios.post(`${ROOT_URL}/setlastcorrect/${type}/${correct}`,{},  {
+            headers: { authorization: localStorage.getItem('token') }
+        });
+    return {
+        type: "setLastCorrect"
+    };
+    
+}
+
+export function setGlobalMessages(message){
+    return function(dispatch, getState){
+        const { global_messages } = getState();
+        // console.log('gggggg', global_messages);
+        // if(global_messages.length === 0){
+            // let qq = global_messages;
+            // qq.push(message);
+            // console.log('help', qq);
+            dispatch({ type: SET_GLOBAL_MESSAGES, payload: message });
+        // } else {
+            //there are some messages
+
+            // dispatch({ type: SET_GLOBAL_MESSAGES, payload: message });
+        // }
+    }
+    // return {
+    //     type: SET_GLOBAL_MESSAGES,
+    //     payload: message
+    // };
+}
+
 export function hideChat(){
     return {
         type: HIDE_CHAT
     };
 }
+export function setUserList(list){
+    return {
+        type: SET_USER_LIST,
+        payload: list
+    };
+}
+export function setUnread(data){
+    return function(dispatch, getState){
+        let { unread } = getState().fullChat;
+        let { chattingWith } = getState().fullChat;
+        let u = [];
+        if(Array.isArray(data)){
+            return dispatch({ type: SET_UNREAD_FULL_CHAT, payload: data });
+        }
+        if(data){
+            if(data.writing !== chattingWith){
+                if(!unread){
+                    unread = [];
+                    unread.push(data.writing);
+                    dispatch({ type: SET_UNREAD_FULL_CHAT, payload: unread });
+                } else {
+                    //unread exists
+                    let x = unread.filter(user => user !== data.writing);
+                    x.push(data.writing);
+                    dispatch({ type: SET_UNREAD_FULL_CHAT, payload: x});
+                }
+                // unread.push(data.writing);   
+            } 
+        }
 
+        
+    }
+}
+export function clearUnread(user){
+    return function(dispatch, getState){
+        console.log('huh', getState().fullChat);
+        let { unread } = getState().fullChat;
+        console.log('dasdas', unread);
+        if(unread){
+            // const x = unread.filter(item => item !== user);
+            // console.log('come on', x);
+            dispatch({ type: CLEAR_UNREAD_FULL_CHAT, payload: user });
+        } else {
+            // dispatch({ type: CLEAR_UNREAD_FULL_CHAT, payload: [] });            
+        }
+    }
+}
+export function fullChatConnected(v){
+    return {
+        type: SET_FULL_CHAT,
+        payload: v
+    };
+}
+export function fullChatPrivateChannel(channel){
+    return {
+        type: PRIVATE_CHANNEL_FULL_CHAT,
+        payload: channel
+    };
+}
+export function fullChatOpen(open){
+    return {
+        type: OPEN_FULL_CHAT,
+        payload: open
+    };
+}
+export function fullChatChattingWith(user){
+    // console.log('suer', user);
+    return {
+        type: CHAT_WITH_FULL_CHAT,
+        payload: user
+    };
+}
+export function fullChatNotificationClear(){
+    return {
+        type: NOTIFY_CLEAR_FULL_CHAT,
+        payload: null
+    };
+}
+export function fullChatNotification(note){
+    return {
+        type: NOTIFY_PM_FULL_CHAT,
+        payload: note
+    };
+}
+export function fullChatOldNotification(note){
+    return {
+        type: OLD_NOTIFY_PM_FULL_CHAT,
+        payload: note
+    };
+}
+export function setPrivateMessages(messages){
+    // console.log('222', messages);
+    // return {
+    //     type: SET_PRIVATE_MESSAGES,
+    //     payload: messages
+    // };
+    return function(dispatch, getState){
+        let { fullChat } = getState();
+        let { privateMessages } = getState();
+        // console.log('fullChat getState', fullChat);
+
+        // if(!fullChat){
+            //chat is not mounted
+            // console.log('-2-2-2-2-2-22-2-2-', privateMessages);
+            if(privateMessages.length === 0){
+                // console.log('00-', messages);
+                dispatch({ type: SET_PRIVATE_MESSAGES, payload: messages });
+            } else if(privateMessages.length > 0){
+                            // console.log('-2-2-2-2-2-22-2-2-', privateMessages);
+
+                //should have an array of one obj with channel or empty array
+                let help = privateMessages.filter(item => item.channel === messages.channel);
+                if(help.length === 0){
+                    //empty, push into privateMessages -- another private chat
+                    
+                    // privateMessages.push(messages);
+                    // console.log('empty - push into array', messages);
+                    dispatch({ type: SET_PRIVATE_MESSAGES, payload: messages });
+                } else {
+                    // there is an obj with the same channel, push the messages into its messages array
+                    // console.log('push into messages - same channel', help);
+                    // console.log('me is wrfd', help[0].messages);
+                    // console.log('qweqweqweqew', messages.messages);
+                    // if(!fullChat){
+                        help[0].messages.push(messages.messages[0]);
+                        // const q = {
+                        //     chat: fullChat,
+                        //     m: help[0]
+                        // };
+                        // return dispatch({ type: SET_PRIVATE_MESSAGES, payload: q });
+                    // }
+                    dispatch({ type: SET_PRIVATE_MESSAGES, payload: help[0] });
+                }
+            }
+        // } 
+        // else {
+        //     dispatch({ type: SET_PRIVATE_MESSAGES, payload: messages });
+        // }
+       
+        // return {
+        //     type: SET_PRIVATE_MESSAGES,
+        //     payload: messages
+        // };
+    }
+}
 export function signupUser({ email, password }, obj){
     return function(dispatch){
         axios.post(`${ROOT_URL}/signup`, { email, password }).then(response => {
@@ -110,7 +314,8 @@ export function authError(error){
     };
 }
 
-export function fetchVerb(tenses, language){
+export function fetchVerb(tenses, language, user){
+    // console.log('uuu', user);
     // console.log(tenses);
     // console.log(typeof(tenses[0]));
     // const request = axios.post(`${ROOT_URL}/word`, tenses);;
@@ -120,7 +325,8 @@ export function fetchVerb(tenses, language){
         });
         const obj = {
             time: ar,
-            lang: language
+            lang: language,
+            user 
         };
         const request = axios.post(`${ROOT_URL}/word`, obj);
         return {
@@ -130,7 +336,8 @@ export function fetchVerb(tenses, language){
     } else {
         const obj = {
             time: tenses,
-            lang: language
+            lang: language,
+            user
         };
         const request = axios.post(`${ROOT_URL}/word`, obj);
         return {
@@ -146,6 +353,7 @@ export function resetVerb(){
         payload: {}
     };
 }
+
 export function selectTime(time){
     // console.log('time', time);
     if(!(typeof(time[0]) === 'string')){
@@ -167,6 +375,12 @@ export function selectTime(time){
         };
     }
     
+}
+export function setUrl(url){
+    return {
+        type: SET_URL,
+        payload: url
+    };   
 }
 export function selectLanguage(lang){
     //make a call to server and save the selected language
@@ -307,8 +521,8 @@ export function fetchSingleFlashcard(id){
     };
 }
 
-export function fetchSentenceBlock(lang, level){
-    const request = axios.get(`${ROOT_URL}/fetchsentence/${lang}/${level}`);
+export function fetchSentenceBlock(lang, level, user){
+    const request = axios.get(`${ROOT_URL}/fetchsentence/${lang}/${level}/${user}`);
     return {
         type: FETCH_SENTENCE_BLOCK,
         payload: request
@@ -319,5 +533,13 @@ export function clearSentenceBlock(){
     return {
         type: CLEAR_SENTENCE_BLOCK,
         payload: {}
+    };
+}
+
+export function saveSentence(values){
+    const request = axios.post(`${ROOT_URL}/savesentence`, {values});
+    return {
+        type: "saveSentence",
+        payload: request
     };
 }

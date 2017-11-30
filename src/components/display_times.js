@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import {selectTime} from './../actions';
+import {selectTime, setUrl} from './../actions';
 import { Link } from 'react-router-dom';
 import ClickTense from './click_tense';
 
@@ -9,6 +9,10 @@ class DisplayTimes extends Component {
     constructor(props){
         super(props);
         this.state = { tense: [] };
+    }
+    componentWillUnmount(){
+        console.log('unmount tenses');
+        this.props.setUrl(window.location.href.slice(window.location.href.length-4));
     }
     componentDidMount(){
         // console.log('me mounted', this.props.time);
@@ -73,7 +77,7 @@ class DisplayTimes extends Component {
         // console.log('HOME push', this.props.pushContent);
         return (
             // // <div className={"app-container " + (this.props.pushContent ? 'app-push' : '')}>
-            <div className={"push-container " + (this.props.push ? 'app-push' : '')}>
+            <div className={"push-container move-in " + (this.props.push ? 'app-push' : '')}>
                 <div className="stretch"> 
             <div className="app-container">
                 <h4>Select the tense you want to practise</h4>
@@ -112,4 +116,4 @@ function mapStateToProps(state){
     };
 }
 
-export default connect(mapStateToProps, { selectTime })(DisplayTimes);
+export default connect(mapStateToProps, { selectTime, setUrl })(DisplayTimes);

@@ -7,7 +7,7 @@ class ChatInput extends Component {
     }
     handleSubmit(e){
         e.preventDefault();
-        this.props.socket.emit('createMessage', {
+        this.props.socket.emit('createMessageSmall', {
             text: this.state.value,
             user: localStorage.getItem('username')
         });

@@ -17,6 +17,21 @@
         display: none;
     }
 }
+.less-padding {
+    /* padding: 0; */
+    padding-left: 0;
+    padding-right: 5px;
+}
+.sentence-block-translation {
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: black;
+    background: white;
+    border-bottom: 1px solid #bfbfbf;
+    width: 100%;
+}
 .sentence-block-correct {
     background: #94ef94 !important;
 }
