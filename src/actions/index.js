@@ -51,6 +51,7 @@ export const PRIVATE_CHAT = 'private_chat';
 
 // const ROOT_URL = 'http://localhost:3007';
 const ROOT_URL ='https://francais-api.azurewebsites.net';
+console.log('root', ROOT_URL);
 export function addPrivate(room, message){
 
 }
