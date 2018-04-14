@@ -88,7 +88,7 @@ class DisplayNoun extends Component {
         }
     }
     render(){
-        // console.log('props noun', this.props.noun);
+        console.log('props noun', this.props.noun);
         return (
             <div className="verb-container">
                 {this.displayContent()}

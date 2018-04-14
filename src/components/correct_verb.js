@@ -17,7 +17,6 @@ class CorrectVerb extends Component {
         this.defaultLang = 'german';
     }
     shouldComponentUpdate(nextProps){
-        // return this.props.open === nextProps.open; 
         if(nextProps.open){
            return this.props.open === nextProps.open;  
         }
@@ -25,7 +24,6 @@ class CorrectVerb extends Component {
             return this.props.open === nextProps.open;
         }
         if(nextProps.expanded){
-            // console.log('?????', nextProps.expanded);
             return this.props.expanded === nextProps.expanded;
         }
         if(this.props.expanded){
@@ -35,7 +33,6 @@ class CorrectVerb extends Component {
         // return this.props.open === nextProps.open; 
     }
     componentWillMount(){
-        console.log('p2322', this.props.lang, this.props.time);
         if(!this.props.lang){
         } else {
             this.defaultLang = this.props.lang;
@@ -147,11 +144,14 @@ class CorrectVerb extends Component {
     
                 //this might not be working on a real server 100ms delay
 
-                if(this.props.auth){
-                    setTimeout(() => {
-                        this.props.setLastCorrect('verb', this.props.verb.word);
-                    }, 200);
-                }
+                // if(this.props.auth){
+                //     setTimeout(() => {
+                //         this.props.setLastCorrect('verb', this.props.verb.word);
+                //     }, 200);
+                // }
+                // if(this.props.auth){ 
+                //     this.props.setLastCorrect('verb', this.props.verb.word);
+                // }
                 setTimeout(() => {
                     if(!this.props.time){
                         if(this.defaultLang === 'french'){
