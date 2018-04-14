@@ -17,6 +17,9 @@ class Menu extends Component {
         // this.socket = io('http://localhost:3007');
         this.notification = "";
         this.id;
+
+        this.handleClick = this.handleClick.bind(this);
+        this.closeMenu = this.closeMenu.bind(this);
     }
     componentWillReceiveProps(nextProps){
         if(nextProps.push){
@@ -49,13 +52,16 @@ class Menu extends Component {
     showMenu(){
         if(this.state.open){
             return (
-                <div>
-                    <RightMenu open={this.state.open} />
+                <div> 
+                    <RightMenu open={this.state.open} closeMenu={this.closeMenu}  />
                 </div>
             );
         } else {
             return ( <div></div> );
         }
+    }
+    closeMenu(){
+        this.setState({ open: false });
     }
     handleClick(){
         if(this.state.open){
@@ -144,7 +150,7 @@ class Menu extends Component {
                 <div className={"menu-icon " + (this.props.push ? 'menu-icon-close' : '')} onClick={ this.handleClick.bind(this) }><div className="menu-icon-middle"></div></div>
                 {/* <div className=" menu-bar-icon"><i className="fal fa-bars" onClick={ this.handleClick.bind(this) }></i></div> */}
                  {/* {this.showMenu()}  */}
-                 <RightMenu open={this.state.open} />
+                 <RightMenu open={this.state.open} closeMenu={this.closeMenu}/>
                  {this.handleNotification()}
             </div>
         );
