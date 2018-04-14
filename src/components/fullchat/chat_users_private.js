@@ -44,7 +44,6 @@ class ChatUsersPrivate extends Component {
         // this.socket.on('privateChatJoined', (data) => {
         //     console.log(data);
         // });
-  
     }
     getInput(value){
         //person: the one writing to, writing: current user

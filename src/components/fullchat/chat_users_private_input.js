@@ -10,8 +10,6 @@ class ChatUsersPrivateInput extends Component {
     }
     handleSubmit(e){
         e.preventDefault();
-        // console.log('me is submit');
-        // console.log(this.state.value);
         this.props.sendInput(this.state.value);
         this.setState({ value: "" });
     }

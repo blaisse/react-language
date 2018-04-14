@@ -10,13 +10,11 @@ class ChatGeneral extends Component {
     }
     componentDidMount(){
         this.props.socket.on('sendMessage', (message) => {
-            // console.log('got a message!', message);
             //save to global state
             this.props.setGlobalMessages(message);
         });
     }
     render(){
-        // console.log('global', this.props.global);
         return (
             <div className="chat-full-general">
                 <ChatGeneralMessages />

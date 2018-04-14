@@ -6,7 +6,6 @@ class ChatGeneralMessages extends Component {
         super(props);
     }
     componentDidMount(){
-        console.log('general chat mounting');
         this.container.scrollTop = this.container.scrollHeight;
     }
     componentDidUpdate(){
@@ -21,7 +20,6 @@ class ChatGeneralMessages extends Component {
         //+ another 20 perhaps? >= then it should always be greater, right?
         //|| this.container.scrollTop < this.container.scrollHeight - this.container.clientHeight
             if(this.container.scrollTop+ this.container.clientHeight+last+secondLast >= this.container.scrollHeight){
-                // console.log('qq', this.container.scrollTop, this.container.scrollHeight- this.container.clientHeight);
             //- this.container.clientHeight i dont need to substract it..
             this.container.scrollTop = this.container.scrollHeight;
         }
@@ -34,7 +32,6 @@ class ChatGeneralMessages extends Component {
         });
     }
     render(){
-        // console.log('gg', this.props.global);
         return (
             <div ref={div => this.container = div} className="chat-full-general-messages">{this.renderMessages()}</div>
         );

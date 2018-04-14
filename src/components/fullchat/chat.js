@@ -10,8 +10,8 @@ class Chat extends Component {
     constructor(props){
         super(props);
         // this.socket = io('http://localhost:3007');
-        this.socket = io('https://francais-api.azurewebsites.net');
-        // this.socket = io('https://safe-badlands-67690.herokuapp.com'); 
+        // this.socket = io('https://francais-api.azurewebsites.net');
+        this.socket = io('https://safe-badlands-67690.herokuapp.com'); 
         this.channel = 'general';
     }
     componentWillUnmount(){
@@ -22,16 +22,11 @@ class Chat extends Component {
 
         //without it, leaving /chat and entering again gives an error - setting state on unmounted component
         // this.socket.disconnect();
-        // console.log('pls help');
         // this.props.fullChatConnected(false);
     }
     componentWillMount(){
         this.props.setUrl('chat');
         this.props.fullChatNotificationClear();
-        
-        // console.log('HEEELEPLEPLEPL');
-        
-        
     }
     componentDidMount(){
         // this.props.setUrl(true);
@@ -55,7 +50,6 @@ class Chat extends Component {
     renderChat(){
         if(this.props.auth){
             //displayPrivateChat={this.displayPrivateChat.bind(this)}
-            // console.log('auth correct');
             return [
                 <div key="1" className="chat-full-users">
                     <ChatUsers socket={this.socket} />
