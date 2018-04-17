@@ -50,7 +50,7 @@ class CorrectVerb extends Component {
         }
     }
     componentDidMount(){  
-        console.log('qqqqq', this.props.verb);
+        console.log('verb', this.props.verb);
     }
     componentWillUnmount(){
         this.props.resetVerb();

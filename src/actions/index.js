@@ -51,7 +51,6 @@ const ROOT_URL = 'https://safe-badlands-67690.herokuapp.com';
 
 // const ROOT_URL = 'http://localhost:3007';
 // const ROOT_URL ='https://francais-api.azurewebsites.net';
-console.log('root', ROOT_URL);
 export function addPrivate(room, message){
 
 }

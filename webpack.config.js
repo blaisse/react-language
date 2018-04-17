@@ -7,9 +7,9 @@ module.exports = {
     publicPath: '/',
     filename: 'bundle.js'
   },
-  module: {
+  module: {   
     loaders: [{
-      exclude: /node_modules/,
+      exclude: /node_modules(?!\/quill)/,
       loader: 'babel',
       query: {
         presets: ['react', 'es2015', 'stage-1']
@@ -24,3 +24,5 @@ module.exports = {
     contentBase: './'
   }
 };
+
+// noParse: /node_modules\/quill\/dist\/quill\.js/,

@@ -17,6 +17,9 @@
 @import 'modules/plural'; 
 @import 'modules/sentence_block'; 
 @import 'modules/chat_full';  
+@import 'modules/panel.css';
+@import 'modules/tutorial.css';
+/* @import 'Draft.css';  */
 
  
 @keyframes moveIn {

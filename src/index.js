@@ -28,6 +28,10 @@ import FlashcardShow from './components/flashcard_show';
 import FlashcardShowOne from './components/flashcard_show_one';
 import SentenceBlocks from './components/sentence/sentence_blocks';
 
+import Panel from './components/panel/Panel';
+
+import Tutorial from './components/tutorial/tutorial';
+
 import ChatFull from './components/fullchat/chat';
 
 import HandleSpecial from './components/hoc_special';
@@ -39,9 +43,7 @@ const createStoreWithMiddleware = applyMiddleware(promise, reduxThunk)(createSto
 function handleKey(event){
   if(event.keyCode === 27){
      let x = document.querySelector('.menu-icon');
-     if(!x){
-      //  console.log('WTF! NO x! WTF?');
-     }
+  
      x.click();
   }
   if(event.keyCode === 112){
@@ -51,6 +53,10 @@ function handleKey(event){
     c.click();
     // c.focus();
     // focusDiv();
+  }
+  if(event.keyCode === 113){
+    document.querySelector('.panel-click').click();
+    // window.location.href = "panel"
   }
  
 }
@@ -101,7 +107,8 @@ ReactDOM.render(
           <Route exact path="/blocks" component={SentenceBlocks} />
           <Route exact path="/chat" component={ChatFull} />
           <Route exact path="/addsentence" component={HandleSpecial(RequireAuth(AddSentence))} />
-
+          <Route exact path="/panel" component={RequireAuth(Panel)} />
+          {/* <Route exact path="/write" component={RequireAuth(Tutorial)} /> */}
         </Switch>
         <Chat />
       </div>

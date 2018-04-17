@@ -1202,6 +1202,7 @@
                 border-bottom: 1px solid #dbdbdb;
                 padding-top: 5px;
                 padding-bottom: 5px;
+                /* font-family: 'Spectral SC', serif; */
                 font-family: 'Didact Gothic', sans-serif;
                 
             }
@@ -1369,6 +1370,47 @@
 .hide-chat-button {
     display: none;
 }
+.panel-header {
+        margin-bottom: 20px;
+    }
+.panel-search {
+        margin-bottom: 20px;
+    }
+.panel-search input {
+            padding: 5px;
+
+        }
+.panel-links {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;  
+        -webkit-box-orient: horizontal;  
+        -webkit-box-direction: normal;  
+            -ms-flex-direction: row;  
+                flex-direction: row;
+        -ms-flex-wrap: wrap;
+            flex-wrap: wrap;
+        -webkit-box-pack: center;
+            -ms-flex-pack: center;
+                justify-content: center;
+        max-width: 600px;
+    }
+.panel-links a {
+            padding: 20px 20px 20px 20px;
+            text-align: center;
+            color: #fff;
+            background-color: #bfe3ff;
+            text-decoration: none;
+            border-radius: 3px;
+            /* border: 1px solid black; */
+            margin: 10px;
+        }
+.tutorial {
+    height: 500px;
+    width: 600px;
+    border: 1px solid lightblue;
+}
+/* @import 'Draft.css';  */
 @-webkit-keyframes moveIn {
     0% {
         opacity: 0;

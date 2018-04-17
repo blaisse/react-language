@@ -61,7 +61,9 @@ class Menu extends Component {
         }
     }
     closeMenu(){
-        this.setState({ open: false });
+        this.setState({ open: false }, () => {
+            this.props.pushContent(this.state.open);
+        });
     }
     handleClick(){
         if(this.state.open){
@@ -145,6 +147,7 @@ class Menu extends Component {
                 <Link to="/plural">Plural</Link>
                 <Link to="/blocks">Blocks</Link>
                 <Link to="/chat">Chat</Link>
+                <Link className="panel-click" to="/panel">Panel</Link>
                 </div>
                 {this.renderSign()}
                 <div className={"menu-icon " + (this.props.push ? 'menu-icon-close' : '')} onClick={ this.handleClick.bind(this) }><div className="menu-icon-middle"></div></div>

@@ -1,6 +1,5 @@
 @import url('https://fonts.googleapis.com/css?family=Didact+Gothic');
 
-
 .chat-full {
     &-container {
         color: #000; 
@@ -40,6 +39,7 @@
                 border-bottom: 1px solid #dbdbdb;
                 padding-top: 5px;
                 padding-bottom: 5px;
+                /* font-family: 'Spectral SC', serif; */
                 font-family: 'Didact Gothic', sans-serif;
                 
             }

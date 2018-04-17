@@ -7,8 +7,8 @@ import SpecialCharacters from './special_characters';
 class AddVerb extends Component {
     constructor(props){
         super(props);
-
         this.state = { sameTense: false, tense: "", language: 'german'};
+        this.handlePaste = this.handlePaste.bind(this);
     }  
     renderField(field){
         // const o = "1";
@@ -16,19 +16,16 @@ class AddVerb extends Component {
         const { meta: { touched, error } } = field;//field.meta.touched and field.meta.error
         const className = `input-error-container ${touched && error ? 'input-error-text' : ''}`;
         const classNameInput = `${touched && error ? 'input-error' : ''}`;
-        // console.log('field', field);
-        // console.log(this);
         return (
             <div className="add-verb-input">
                 <div className="add-verb-input-row">
                     <label>{field.label}</label>
-                    <input className={classNameInput} placeholder="" type="text" { ...field.input } />
+                    <input className={classNameInput} placeholder="" type="text" { ...field.input } onPaste={field.paste} />
                 </div>
                 <div className={className}>{touched ? error : ''}</div> 
             </div>
         );
     }
-   
     onSubmit(values){
         //values are in a different format than needed to post to DB
         let l = this.props.lang;
@@ -105,6 +102,35 @@ class AddVerb extends Component {
         }
     }
     handleNothing(){}
+    handlePaste(e){
+        console.log('change', this.props.change);
+        console.log('pasting', e.clipboardData.getData('text/plain'));
+        const pasted = e.clipboardData.getData('text/plain').replace(/\r?\n|\r/g, "-").trim();
+        const fullySplitString = pasted.replace(/-/g, " ");
+        const pastedSpaceSplit = fullySplitString.split(" ");
+
+        //turn the array into an object { "je": "reviens" }
+        const pastedObject = {};
+        pastedSpaceSplit.forEach((item, i) => {
+            if(i % 2 === 0){
+                pastedObject[item] = "";
+            } else {
+                pastedObject[pastedSpaceSplit[i-1]] = item;
+            }
+        });
+
+        const fieldNames = ["ich", "du", "er_sie_es", "wir", "ihr", "sie_Sie"];
+
+        Object.keys(pastedObject).forEach((field, i) => {
+            this.props.change(fieldNames[i], pastedObject[field]);
+        });
+
+        //setTimeout is used to clear the Verb input where data was pasted, setTimeout gets delegated
+        //and the input in cleared just after the text is pasted
+        setTimeout(() => {
+            this.props.change("word", "");
+        }, 1);
+    }
     render(){
         const { handleSubmit } = this.props;
         let p;
@@ -121,7 +147,7 @@ class AddVerb extends Component {
                     {this.renderLanguage()}
                 </div>
                 <form onSubmit={handleSubmit(this.onSubmit.bind(this))} autoComplete="off">
-                    <Field normalize={this.props.handleAddVerb.bind(this)} label="Verb" name="word" component={this.renderField} />
+                    <Field ref={input => this.word = input} paste={this.handlePaste} normalize={this.props.handleAddVerb.bind(this)} label="Verb" name="word" component={this.renderField} />
                     <Field label="Meaning" name="meaning" component={this.renderField} />
                     <Field label="Tense" name="time" component={this.renderField} />
                     {/* <Field label="Language" name="lang" component={this.renderField} /> */}

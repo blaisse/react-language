@@ -38,24 +38,14 @@ class DisplayNoun extends Component {
                 
             });
             setTimeout(() => {
-                // async function huh(){
-                //     console.log('async', this);
-                //     await 
-                    
-                // }
                 if(this.props.auth){
                     this.props.userFetchNoun(this.default_language);
                 } else {
                     this.props.fetchNoun(this.default_language);
-                }
-                
-                
+                }  
                 this.setState({ correct: "3" });
-                
             }, 400);
             
-            // this.setState({ correct: "3" });
-            // console.log('ALL GOOD');
         } else {
             // console.log('wrong');
             this.setState({ correct: "2" }, () => {

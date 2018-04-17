@@ -1,0 +1,29 @@
+.panel {
+    &-header {
+        margin-bottom: 20px;
+    }
+    &-search {
+        margin-bottom: 20px;
+        input {
+            padding: 5px;
+
+        }
+    }
+    &-links {
+        display: flex;  
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        max-width: 600px;
+        a {
+            padding: 20px 20px 20px 20px;
+            text-align: center;
+            color: #fff;
+            background-color: #bfe3ff;
+            text-decoration: none;
+            border-radius: 3px;
+            /* border: 1px solid black; */
+            margin: 10px;
+        }
+    }
+}
